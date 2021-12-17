@@ -118,11 +118,19 @@ export class AuthService {
   }
 
   setRememberMe(loginModel: any) {
-    if (loginModel.rememberMe) {
-      localStorage.setItem("user", JSON.stringify(loginModel))
-    } else {
-      sessionStorage.setItem("user", JSON.stringify(loginModel))
-    }
+    this.getuser(loginModel.email).subscribe(user => {
+      if (loginModel.rememberMe) {
+        localStorage.setItem("user", JSON.stringify(user))
+      } else {
+        sessionStorage.setItem("user", JSON.stringify(user))
+      }
+    })
+  }
+  getUserInStorage():User{
+    let session = sessionStorage.getItem("user");
+    let local = localStorage.getItem("user");
+    if(session) return JSON.parse(session);
+    else if(local) return JSON.parse(local);
   }
   removeRememberMe() {
     const storage = localStorage.getItem("user")
@@ -130,8 +138,15 @@ export class AuthService {
       localStorage.removeItem("user");
     }
   }
-  checkRemember(): Boolean {
+  checkLocalRemember(): Boolean {
     const storage = localStorage.getItem("user")
+    if (storage) {
+      return true;
+    }
+    return false;
+  }
+  checkSessionRemember(): Boolean {
+    const storage = sessionStorage.getItem("user")
     if (storage) {
       return true;
     }

@@ -36,9 +36,7 @@ export class HomePage implements OnInit{
   ) {}
 
   ngOnInit(){
-    this.authService.getCurrentUser().subscribe(user=>{
-      this.currentUser = user
-    })
+    this.currentUser = this.authService.getUserInStorage();
     this.getProducts().subscribe(products=>{
       this.products = products;
     })
@@ -121,8 +119,9 @@ export class HomePage implements OnInit{
     toast.present();
   }
 
-  isInRoleAdmin():boolean{
-    return this.authService.isInRole(this.currentUser,"Admin")
+  isInRoleAdmin(){
+    let user = this.authService.getUserInStorage();
+    return this.authService.isInRole(user,"Admin")
   }
 
 }
