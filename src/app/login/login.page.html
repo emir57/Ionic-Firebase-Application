@@ -25,8 +25,10 @@
           <input formControlName="rememberMe" type="checkbox" value="remember-me"> Beni Hatırla
         </label>
       </div> -->
-      <button (click)="login()" [disabled]="!loginForm.valid" class="w-100 btn btn-lg btn-primary mb-3" type="submit">
-        Giriş Yap
+      <button [disabled]="!isOk" [disabled]="!loginForm.valid" (click)="login()" class="w-100 btn btn-lg btn-primary mb-3" type="submit">
+        <span *ngIf="!isOk" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="isOk">Giriş Yap</span>
+        <span *ngIf="!isOk"> Giriş Yapılıyor</span>
       </button>
       <a routerLink="/register" style="text-decoration: none;" class="mb-3">Hesabın yok mu?</a>
       <br>

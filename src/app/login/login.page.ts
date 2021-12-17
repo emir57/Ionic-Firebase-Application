@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPage implements OnInit {
 
+  isOk=true;
   loginForm: FormGroup
   constructor(
     private formBuilder: FormBuilder,
@@ -33,12 +34,14 @@ export class LoginPage implements OnInit {
   }
   login() {
     if (this.loginForm.valid) {
+      this.isOk=false;
       let isSuccess = true;
       let loginModel = Object.assign({}, this.loginForm.value);
       this.authService.login(loginModel)
         .catch(error => {
           isSuccess = false;
           this.presentToast(this.authService.setErrorMessage(error));
+          this.isOk=true;
         }).finally(async () => {
           if (isSuccess) {
             this.authService.setRememberMe(loginModel)
@@ -46,8 +49,8 @@ export class LoginPage implements OnInit {
               this.authService.isLogin = true;
               this.presentToast("Giriş Başarılı")
               this.router.navigate(["home"])
+              this.isOk=true;
             }, 1000);
-
           }
         })
     }
