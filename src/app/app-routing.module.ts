@@ -35,6 +35,14 @@ const routes: Routes = [
     path: 'category-update',
     loadChildren: () => import('./category-update/category-update.module').then( m => m.CategoryUpdatePageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
 ];
 
 @NgModule({
