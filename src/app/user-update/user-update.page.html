@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Kullanıcı Ekle</ion-title>
+    <ion-title>Kullanıcı Güncelle</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
         Kapat
@@ -32,7 +32,7 @@
       <ion-input formControlName="roles" placeholder="User,Moderator"></ion-input>
     </ion-item>
   </form>
-  <ion-button [disabled]="!userAddForm.valid" (click)="saveUser()" expand="block" shape="round">
+  <ion-button [disabled]="!userUpdateForm.valid" (click)="saveUser()" expand="block" shape="round">
     Kaydet
   </ion-button>
 </ion-content>

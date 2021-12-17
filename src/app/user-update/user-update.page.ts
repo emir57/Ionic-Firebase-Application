@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalController, ToastController } from '@ionic/angular';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-user-update',
@@ -6,10 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-update.page.scss'],
 })
 export class UserUpdatePage implements OnInit {
+  @Input() user:User
 
-  constructor() { }
+  userUpdateForm:FormGroup
+  constructor(
+    private formBuilder:FormBuilder,
+    private modalController:ModalController,
+    private toastController:ToastController
+  ) { }
 
   ngOnInit() {
+    this.createuserUpdateForm();
+  }
+
+  createuserUpdateForm(){
+    this.userUpdateForm = this.formBuilder.group({
+      id:[this.user.id],
+      email: [this.user.email, [Validators.required, Validators.email]],
+      firstName: [this.user.firstName, [Validators.required, Validators.maxLength(20)]],
+      lastName: [this.user.lastName, [Validators.required, Validators.maxLength(20)]],
+      password: [this.user.password, [Validators.required]],
+      roles: [this.user.roles, []],
+    })
   }
 
 }

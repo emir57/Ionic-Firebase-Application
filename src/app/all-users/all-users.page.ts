@@ -32,7 +32,9 @@ export class AllUsersPage implements OnInit {
   }
 
   async showUpdateModal(user:User){
-
+    const modal = await this.modalController.create({
+      component:User
+    })
   }
 
 }
