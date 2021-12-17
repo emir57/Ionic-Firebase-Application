@@ -1,15 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Kategori Güncelle</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="deleteProduct()" color="danger">
+        Sil
+      </ion-button>
+      <ion-button (click)="dismiss()">
+        Kapat
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
-  <ion-buttons slot="end">
-    <ion-button (click)="deleteProduct()" color="danger">
-      Sil
-    </ion-button>
-    <ion-button (click)="dismiss()">
-      Kapat
-    </ion-button>
-  </ion-buttons>
 </ion-header>
 
 <ion-content>
