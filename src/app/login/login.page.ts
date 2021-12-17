@@ -40,6 +40,7 @@ export class LoginPage implements OnInit {
           this.presentToast(this.authService.setErrorMessage(error));
         }).finally(()=>{
             this.authService.setRememberMe(loginModel)
+            this.authService.isLogin=true;
             this.presentToast("Giriş Başarılı")
             this.router.navigate(["home"])
         })
