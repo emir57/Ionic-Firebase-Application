@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -10,28 +11,50 @@ import { UserService } from '../services/user.service';
 })
 export class UserAddPage implements OnInit {
 
-  userAddForm:FormGroup
+  userAddForm: FormGroup
   constructor(
-    private userService:UserService,
-    private modalController:ModalController,
-    private formBuilder:FormBuilder
+    private userService: UserService,
+    private modalController: ModalController,
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
     this.createuserAddForm();
   }
 
-  createuserAddForm(){
+  createuserAddForm() {
     this.userAddForm = this.formBuilder.group({
-      email:['',[Validators.required,Validators.email]],
-      firstName:['',[Validators.required,Validators.maxLength(20)]],
-      lastName:['',[Validators.required,Validators.maxLength(20)]],
-      roles:['',[]],
+      email: ['', [Validators.required, Validators.email]],
+      firstName: ['', [Validators.required, Validators.maxLength(20)]],
+      lastName: ['', [Validators.required, Validators.maxLength(20)]],
+      password: ['', [Validators.required]],
+      roles: ['', []],
     })
   }
 
-  dismiss(){
+  saveUser() {
+    if (this.userAddForm.valid) {
+      let user = Object.assign({}, this.userAddForm.value)
+      this.userService.addUser(user)
+        .finally(() => {
+          window.location.reload();
+        })
+      this.presentToast(`${user.firstName} ${user.lastName} Başarıyla Kaydedildi`)
+      this.modalController.dismiss();
+    }
+  }
+
+  dismiss() {
     this.modalController.dismiss();
+  }
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

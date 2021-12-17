@@ -62,6 +62,10 @@ const routes: Routes = [
     path: 'user-add',
     loadChildren: () => import('./user-add/user-add.module').then( m => m.UserAddPageModule)
   },
+  {
+    path: 'user-update',
+    loadChildren: () => import('./user-update/user-update.module').then( m => m.UserUpdatePageModule)
+  },
 
 ];
 

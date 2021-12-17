@@ -20,7 +20,6 @@
       <tr>
         <th>Ad Soyad</th>
         <th>Eposta</th>
-        <th>Roller</th>
         <th></th>
       </tr>
     </thead>
@@ -28,9 +27,8 @@
       <tr  *ngFor="let user of users">
         <td>{{user.firstName}} {{user.lastName}}</td>
         <td>
-          {{user.email.substring(0,13)}}
+          {{user.email.substring(0,7)}}
         </td>
-        <td>{{user.roles}}</td>
         <td>
           <ion-button (click)="showUpdateModal(user)" expand="block" fill="clear" shape="round">
             <ion-icon name="create-outline"></ion-icon>
