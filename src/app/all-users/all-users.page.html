@@ -18,8 +18,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Ad ve Soyad</th>
+        <th>Ad Soyad</th>
         <th>Eposta</th>
         <th>Roller</th>
         <th></th>
@@ -27,10 +26,9 @@
     </thead>
     <tbody>
       <tr  *ngFor="let user of users">
-        <td>{{user.id}}</td>
         <td>{{user.firstName}} {{user.lastName}}</td>
         <td>
-          {{user.email}}
+          {{user.email.substring(0,13)}}
         </td>
         <td>{{user.roles}}</td>
         <td>
