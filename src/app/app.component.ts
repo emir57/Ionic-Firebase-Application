@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { ProductAddPage } from './product-add/product-add.page';
 import { AuthService } from './services/auth.service';
@@ -9,12 +10,34 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   constructor(
-    public modalController:ModalController,
-    private authService:AuthService
+    public modalController: ModalController,
+    private authService: AuthService,
+    private router: Router
   ) {
-    if(this.authService.checkRemember()){
-      let user =JSON.parse(localStorage.getItem("user"))
-      this.authService.login(user)
+    let check = true;
+    let sessionUser = sessionStorage.getItem("user")
+    let localUser = localStorage.getItem("user")
+    if (localUser) {
+      this.authService.login(JSON.parse(localUser))
+        .catch(() => {
+          check = false
+        }).finally(() => {
+          if (check) {
+            this.authService.isLogin = true;
+            this.router.navigate(["home"])
+          }
+        })
+    }
+    else if (sessionUser) {
+      this.authService.login(JSON.parse(sessionUser))
+        .catch(() => {
+          check = false
+        }).finally(() => {
+          if (check) {
+            this.authService.isLogin = true;
+            this.router.navigate(["home"])
+          }
+        })
     }
   }
 }
