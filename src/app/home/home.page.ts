@@ -97,7 +97,7 @@ export class HomePage implements OnInit{
 
   logout(){
     this.authService.logout().finally(()=>{
-      this.presentToast("Çıkış Yapılıyor..")
+      this.presentToast("Başarıyla çıkış yapıldı")
       this.router.navigate(["/login"])
     })
   }
