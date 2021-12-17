@@ -39,11 +39,9 @@ export class LoginPage implements OnInit {
           isSuccess=false;
           this.presentToast(this.authService.setErrorMessage(error));
         }).finally(()=>{
-          if(isSuccess){
             this.authService.setRememberMe(loginModel)
             this.presentToast("Giriş Başarılı")
             this.router.navigate(["/home"])
-          }
         })
     }
   }

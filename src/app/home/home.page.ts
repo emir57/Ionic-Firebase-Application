@@ -8,6 +8,7 @@ import { AllProductsPage } from '../all-products/all-products.page';
 import { CategoryAddPage } from '../category-add/category-add.page';
 import { Category } from '../models/category';
 import { Product } from '../models/product';
+import { User } from '../models/user';
 import { ProductAddPage } from '../product-add/product-add.page';
 import { AuthService } from '../services/auth.service';
 import { CategoryService } from '../services/category.service';
@@ -19,6 +20,7 @@ import { ProductService } from '../services/product.service';
 })
 export class HomePage implements OnInit{
 
+  currentUser:User
   selectedCategoryId="0";
   searchString="";
   products:Product[]=[]
@@ -35,7 +37,7 @@ export class HomePage implements OnInit{
 
   ngOnInit(){
     this.authService.getCurrentUser().subscribe(user=>{
-      console.log(user)
+      this.currentUser = user
     })
     // this.authService.getUserEmail().subscribe(doc=>console.log(doc))
     this.getProducts().subscribe(products=>{
@@ -97,11 +99,15 @@ export class HomePage implements OnInit{
     return await modal.present();
   }
 
-  logout(){
-    this.authService.logout().finally(()=>{
+  async logout(){
+    this.modalController.dismiss();
+    this.authService.logout()
+    .catch(error=>{
+      console.log(error)
+    }).finally(()=>{
       this.presentToast("Başarıyla çıkış yapıldı")
-      this.router.navigate(["/login"])
     })
+    this.router.navigate(["/login"])
   }
 
 

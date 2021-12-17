@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { DiscountPipe } from '../pipes/discount.pipe';
 import { ProductSearchPipe } from '../pipes/product-search.pipe';
 import { GetProductforCategoryPipe } from '../pipes/get-productfor-category.pipe';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -15,8 +16,9 @@ import { GetProductforCategoryPipe } from '../pipes/get-productfor-category.pipe
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    PipesModule
   ],
-  declarations: [HomePage,DiscountPipe,ProductSearchPipe,GetProductforCategoryPipe]
+  declarations: [HomePage,DiscountPipe,GetProductforCategoryPipe],
 })
 export class HomePageModule {}

@@ -8,6 +8,7 @@ import { AllProductsPageRoutingModule } from './all-products-routing.module';
 
 import { AllProductsPage } from './all-products.page';
 import { ProductSearchPipe } from '../pipes/product-search.pipe';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,8 +16,8 @@ import { ProductSearchPipe } from '../pipes/product-search.pipe';
     FormsModule,
     IonicModule,
     AllProductsPageRoutingModule,
-
+    PipesModule
   ],
-  declarations: [AllProductsPage,ProductSearchPipe]
+  declarations: [AllProductsPage]
 })
 export class AllProductsPageModule {}
