@@ -119,4 +119,8 @@ export class HomePage implements OnInit{
     toast.present();
   }
 
+  isInRoleAdmin():boolean{
+    return this.authService.isInRole(this.currentUser,"Admin")
+  }
+
 }

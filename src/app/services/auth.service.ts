@@ -108,15 +108,12 @@ export class AuthService {
     switch (code) {
       case "auth/wrong-password":
         return "şifre yanlış";
-        break;
       case "auth/user-not-found":
         return "kullanıcı bulunamadı";
-        break;
       case "auth/invalid-email":
         return "geçersiz eposta"
-        break;
       default:
-        break;
+        "Bilinmeyen bir hata oluştu";
     }
   }
 
