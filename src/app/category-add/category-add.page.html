@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Kategori Ekle</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        Kapat
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="categoryAddForm">
+    <ion-item>
+      <ion-label position="floating">Kategori İsmi</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+  </form>
+  <ion-button [disabled]="!categoryAddForm.valid" (click)="saveCategory()" expand="block" shape="round">
+    Kaydet
+  </ion-button>
+</ion-content>

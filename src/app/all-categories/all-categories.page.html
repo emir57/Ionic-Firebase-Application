@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tüm kategoriler</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showAddCategoryModal()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Kategori Ekle
+      </ion-button>
+      <ion-button routerLink="/home">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar showCancelButton="focus" placeholder="Kategori Arayınız" [(ngModel)]="searchString"></ion-searchbar>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Kategori Adı</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories |categorySearch:searchString">
+        <td>{{category.id.substring(0,10)}}</td>
+        <td>{{category.name}}</td>
+        <td>
+          <ion-button (click)="showUpdateModal(category)" expand="block" fill="clear" shape="round">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ion-content>

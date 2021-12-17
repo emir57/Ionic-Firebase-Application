@@ -1,0 +1,93 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Ana Sayfa
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon name="reorder-four-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-menu side="start" menuId="first">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>İşlemler</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-button routerLink="/all-products" expand="block" fill="clear" shape="round">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          Tüm Ürünler
+        </ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button routerLink="/all-categories" expand="block" fill="clear" shape="round">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          Tüm Kategoriler
+        </ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button expand="block" fill="clear" color="danger" shape="round">
+          <ion-icon name="log-out-outline"></ion-icon>
+          Çıkış Yap
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-router-outlet main></ion-router-outlet>
+
+<ion-content [fullscreen]="true">
+  <div style="margin-bottom:30%">
+    <ion-searchbar showCancelButton="focus" placeholder="Ürün Ara" [(ngModel)]="searchString"></ion-searchbar>
+    <ion-list>
+      <ion-item>
+        <ion-label>Kategori</ion-label>
+        <ion-select [(ngModel)]="selectedCategoryId" okText="TAMAM" cancelText="İPTAL">
+            <ion-select-option value="0">Hepsini Göster</ion-select-option>
+          <ion-select-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="card" style="width: 18rem; margin: auto;" *ngFor="let product of products |productSearch:searchString |getProductforCategory:selectedCategoryId">
+    <img [src]="product.imageUrl" class="card-img-top" [alt]="product.productName">
+    <div class="card-body">
+      <h5 class="card-title">{{product.productName}}</h5>
+      <p class="card-text">{{product.description}}</p>
+      <p *ngIf="product.isDiscount">
+        <del class="text-muted">{{product.unitPrice | currency:'TRY'}}</del>
+      </p>
+      <p>
+        {{product.unitPrice | discount:product.discount:product.isDiscount | currency:'TRY'}}
+        <span class="badge bg-danger" *ngIf="product.isDiscount">-{{product.discount}}%</span>
+      </p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item text-primary" *ngIf="product.stock!=1"><i>{{product.stock}} Adet Kaldı</i></li>
+      <li class="list-group-item text-danger" *ngIf="product.stock==1"><i>Son 1 Adet</i></li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+
+  <!-- <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button  tab="/categoryadd">
+        <ion-icon name="add-outline"></ion-icon>
+        <ion-label>Kategori Ekle</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="/productadd">
+        <ion-icon name="add-outline"></ion-icon>
+        <ion-label>Ürün Ekle </ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs> -->
+</ion-content>

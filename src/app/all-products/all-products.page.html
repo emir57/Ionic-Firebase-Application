@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tüm ürünler</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showAddProductModal()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Ürün Ekle
+      </ion-button>
+      <ion-button routerLink="/home">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar showCancelButton="focus" placeholder="Ürün Arayınız" [(ngModel)]="searchString"></ion-searchbar>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Ürün İsmi</th>
+        <th>Fotoğraf</th>
+        <th>Birim Fiyatı</th>
+        <th>Stok Adedi</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let product of products | productSearch:searchString">
+        <td>{{product.productName}}</td>
+        <td>
+          <img [src]="product.imageUrl" [alt]="product.productName">
+        </td>
+        <td>{{product.unitPrice}}</td>
+        <td [ngClass]="checkStock(product)">{{product.stock}}</td>
+        <td>
+          <ion-button (click)="showUpdateModal(product)" expand="block" fill="clear" shape="round">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ion-content>
