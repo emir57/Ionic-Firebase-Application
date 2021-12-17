@@ -42,10 +42,9 @@ export class LoginPage implements OnInit {
           if(isSuccess){
             this.setRememberMe(loginModel)
             this.presentToast("Giriş Başarılı")
+            this.router.navigate(["/home"])
           }
         })
-
-      console.log(this.loginForm.value);
     }
   }
 
