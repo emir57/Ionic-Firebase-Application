@@ -18,26 +18,30 @@ export class AppComponent {
     let sessionUser = sessionStorage.getItem("user")
     let localUser = localStorage.getItem("user")
     if (localUser) {
-      this.authService.login(JSON.parse(localUser))
-        .catch(() => {
-          check = false
-        }).finally(() => {
-          if (check) {
-            this.authService.isLogin = true;
-            this.router.navigate(["home"])
-          }
-        })
+      this.authService.isLogin = true;
+      this.router.navigate(["home"])
+      // this.authService.login(JSON.parse(localUser))
+      //   .catch(() => {
+      //     check = false
+      //   }).finally(() => {
+      //     if (check) {
+      //       this.authService.isLogin = true;
+      //       this.router.navigate(["home"])
+      //     }
+      //   })
     }
     else if (sessionUser) {
-      this.authService.login(JSON.parse(sessionUser))
-        .catch(() => {
-          check = false
-        }).finally(() => {
-          if (check) {
-            this.authService.isLogin = true;
-            this.router.navigate(["home"])
-          }
-        })
+      this.authService.isLogin = true;
+      this.router.navigate(["home"])
+      // this.authService.login(JSON.parse(sessionUser))
+      //   .catch(() => {
+      //     check = false
+      //   }).finally(() => {
+      //     if (check) {
+      //       this.authService.isLogin = true;
+      //       this.router.navigate(["home"])
+      //     }
+      //   })
     }
   }
 }
