@@ -25,17 +25,42 @@ export class AuthService {
     return this.firebaseAuth.signInWithEmailAndPassword(user.email,user.password)
   }
 
-  getUserId():Observable<any>{
+  getUsers():Observable<any>{
+    let users:User[]=[]
     const subject = new Subject<any>();
-    this.firebaseAuth.user.subscribe(doc=>{
-      subject.next(doc.uid);
+    const collection:any = this.firebaseStore.collection("users").get()
+    collection.subscribe(doc=>{
+      doc.forEach(d=>users.push(Object.assign({},d.data())))
+      subject.next(users);
     })
     return subject.asObservable();
   }
-
-  getUsers(){
+  getuser(){
+    let currentUserEmail = this.firebaseAuth.currentUser.then(user=>{
+      console.log(user);
+    })
+  }
+  getCurrentUser():Observable<any>{
+    let user:User
+    let currentUserEmail = this.getUserEmail();
     const subject = new Subject<any>();
+    const collection:any = this.firebaseStore.collection("users").get()
+    collection.subscribe(doc=>{
 
+      doc.forEach(d=>{
+        console.log(d.data())
+        // if(d.email)
+        subject.next(user);
+      })
+    })
+    return subject.asObservable();
+  }
+  private getUserEmail():Observable<any>{
+    const subject = new Subject<any>();
+    this.firebaseAuth.user.subscribe(doc=>{
+      subject.next(doc.email);
+    })
+    return subject.asObservable();
   }
 
 

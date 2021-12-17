@@ -1,9 +1,47 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <main class="form-signin">
+    <form [formGroup]="registerForm">
+      <img class="mb-4" src="../../assets/logo.png" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 fw-normal">Kayıt Ol</h1>
+      <div class="form-floating mb-3">
+        <input formControlName="firstName" type="text" class="form-control" id="firstName" placeholder="name">
+        <label for="firstName">Ad</label>
+        <div *ngIf="(registerForm.get('firstName').dirty || registerForm.get('firstName').touched) && registerForm.get('firstName').errors">
+          <span class="text-danger" *ngIf="registerForm.get('firstName').errors.maxlength">ad en fazla 20 karakter olabilir</span>
+          <span class="text-danger" *ngIf="registerForm.get('firstName').errors.required">ad gerekli</span>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input formControlName="lastName" type="text" class="form-control" id="lastName" placeholder="surname">
+        <label for="lastName">Soyad</label>
+        <div *ngIf="(registerForm.get('lastName').dirty || registerForm.get('lastName').touched) && registerForm.get('lastName').errors">
+          <span class="text-danger" *ngIf="registerForm.get('lastName').errors.maxlength">soyad en fazla 20 karakter olabilir</span>
+          <span class="text-danger" *ngIf="registerForm.get('lastName').errors.required">soyad gerekli</span>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input formControlName="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+        <label for="email">Eposta Adresi</label>
+        <div *ngIf="(registerForm.get('email').dirty || registerForm.get('email').touched) && registerForm.get('email').errors">
+          <span class="text-danger" *ngIf="registerForm.get('email').errors.email">geçersiz eposta</span>
+          <span class="text-danger" *ngIf="registerForm.get('email').errors.required">eposta gerekli</span>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
+        <label for="password">Şifre</label>
+        <div *ngIf="(registerForm.get('password').dirty || registerForm.get('password').touched) && registerForm.get('password').errors">
+          <span class="text-danger" *ngIf="registerForm.get('password').errors.minlength">en az 6 karakter olabilir</span>
+          <span class="text-danger" *ngIf="registerForm.get('password').errors.required">şifre gereli</span>
+        </div>
+      </div>
+      <button (click)="register()" [disabled]="!registerForm.valid" class="w-100 btn btn-lg btn-primary" type="submit">
+        Kayıt Ol
+      </button>
+
+      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+    </form>
+  </main>
 
 </ion-content>
+
