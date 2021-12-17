@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
           this.presentToast(this.authService.setErrorMessage(error));
         }).finally(()=>{
           if(isSuccess){
-            this.setRememberMe(loginModel)
+            this.authService.setRememberMe(loginModel)
             this.presentToast("Giriş Başarılı")
             this.router.navigate(["/home"])
           }
@@ -56,11 +56,7 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
-  private setRememberMe(loginModel:any){
-    if(loginModel.rememberMe){
-      localStorage.setItem("user",JSON.stringify(loginModel))
-    }
-  }
+
 
 
 
