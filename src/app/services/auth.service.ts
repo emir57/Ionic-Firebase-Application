@@ -81,6 +81,19 @@ export class AuthService {
     })
     return subject.asObservable();
   }
+  isInRole(user:User,role:string) {
+    let check = false;
+    let roles= user.roles.split(",");
+    roles.forEach(r=>{
+      if(r.toLocaleLowerCase()===role.toLocaleLowerCase()){
+        check=true;
+      }
+    })
+    return check;
+  }
+  resetPassword(email:string){
+    return this.firebaseAuth.sendPasswordResetEmail(email);
+  }
   private getUserEmail():Observable<any>{
     const subject = new Subject<any>();
     this.firebaseAuth.user.subscribe(doc=>{
