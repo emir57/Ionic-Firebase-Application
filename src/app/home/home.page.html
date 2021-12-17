@@ -21,13 +21,13 @@
       <ion-item>
         <ion-label *ngIf="currentUser">Hoşgeldiniz {{currentUser.firstName}} {{currentUser.lastName}}</ion-label>
       </ion-item>
-      <ion-item *ngIf="isInRoleAdmin()">
+      <ion-item >
         <ion-button routerLink="/all-products" expand="block" fill="clear" shape="round">
           <ion-icon name="bar-chart-outline"></ion-icon>
           Tüm Ürünler
         </ion-button>
       </ion-item>
-      <ion-item *ngIf="isInRoleAdmin()">
+      <ion-item >
         <ion-button routerLink="/all-categories" expand="block" fill="clear" shape="round">
           <ion-icon name="bar-chart-outline"></ion-icon>
           Tüm Kategoriler

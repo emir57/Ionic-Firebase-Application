@@ -104,6 +104,8 @@ export class HomePage implements OnInit{
     .catch(error=>{
       console.log(error)
     }).finally(()=>{
+      localStorage.removeItem("user");
+      sessionStorage.removeItem("user");
       this.presentToast("Başarıyla çıkış yapıldı")
     })
     this.router.navigate(["/login"])
