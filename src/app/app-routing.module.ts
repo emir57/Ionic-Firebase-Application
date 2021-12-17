@@ -24,27 +24,33 @@ const routes: Routes = [
   },
   {
     path: 'product-add',
-    loadChildren: () => import('./product-add/product-add.module').then( m => m.ProductAddPageModule)
+    loadChildren: () => import('./product-add/product-add.module').then( m => m.ProductAddPageModule),
+    canActivate:[SecurityGuard]
   },
   {
     path: 'category-add',
-    loadChildren: () => import('./category-add/category-add.module').then( m => m.CategoryAddPageModule)
+    loadChildren: () => import('./category-add/category-add.module').then( m => m.CategoryAddPageModule),
+    canActivate:[SecurityGuard]
   },
   {
     path: 'all-products',
-    loadChildren: () => import('./all-products/all-products.module').then( m => m.AllProductsPageModule)
+    loadChildren: () => import('./all-products/all-products.module').then( m => m.AllProductsPageModule),
+    canActivate:[SecurityGuard]
   },
   {
     path: 'all-categories',
-    loadChildren: () => import('./all-categories/all-categories.module').then( m => m.AllCategoriesPageModule)
+    loadChildren: () => import('./all-categories/all-categories.module').then( m => m.AllCategoriesPageModule),
+    canActivate:[SecurityGuard]
   },
   {
     path: 'update-products',
-    loadChildren: () => import('./product-update/update-products.module').then( m => m.UpdateProductsPageModule)
+    loadChildren: () => import('./product-update/update-products.module').then( m => m.UpdateProductsPageModule),
+    canActivate:[SecurityGuard]
   },
   {
     path: 'category-update',
-    loadChildren: () => import('./category-update/category-update.module').then( m => m.CategoryUpdatePageModule)
+    loadChildren: () => import('./category-update/category-update.module').then( m => m.CategoryUpdatePageModule),
+    canActivate:[SecurityGuard]
   },
 
 ];
