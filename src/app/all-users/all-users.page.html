@@ -2,12 +2,13 @@
   <ion-toolbar>
     <ion-title>Tüm Kullanıcılar</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="showAddUserModal()">
-        <ion-icon slot="start" name="add"></ion-icon>
-        Kullanıcı Ekle
-      </ion-button>
       <ion-button routerLink="/home">
         <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-button (click)="showAddUserModal()">
+        <ion-icon slot="start" name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
