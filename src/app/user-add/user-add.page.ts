@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class UserAddPage implements OnInit {
   userAddForm:FormGroup
   constructor(
     private userService:UserService,
+    private modalController:ModalController,
     private formBuilder:FormBuilder
   ) { }
 
@@ -26,6 +28,10 @@ export class UserAddPage implements OnInit {
       lastName:['',[Validators.required,Validators.maxLength(20)]],
       roles:['',[]],
     })
+  }
+
+  dismiss(){
+    this.modalController.dismiss();
   }
 
 }
