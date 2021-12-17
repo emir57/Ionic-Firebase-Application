@@ -54,11 +54,12 @@
       </ion-item>
     </ion-list>
   </div>
+  <!-- Product -->
   <div class="card" style="width: 18rem; margin: auto;" *ngFor="let product of products |productSearch:searchString |getProductforCategory:selectedCategoryId">
     <img [src]="product.imageUrl" class="card-img-top" [alt]="product.productName">
     <div class="card-body">
       <h5 class="card-title">{{product.productName}}</h5>
-      <p class="card-text">{{product.description}}</p>
+      <!-- <p class="card-text">{{product.description}}</p> -->
       <p *ngIf="product.isDiscount">
         <del class="text-muted">{{product.unitPrice | currency:'TRY'}}</del>
       </p>
@@ -69,13 +70,15 @@
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item text-primary" *ngIf="product.stock!=1"><i>{{product.stock}} Adet Kaldı</i></li>
-      <li class="list-group-item text-danger" *ngIf="product.stock==1"><i>Son 1 Adet</i></li>
+      <li class="list-group-item text-warning" *ngIf="product.stock==1"><i>Son 1 Adet</i></li>
+      <li class="list-group-item text-danger" *ngIf="product.stock==0"><i>Tükendi</i></li>
     </ul>
     <div class="card-body">
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+      <button class="card-link btn btn-primary">Detay</button>
+      <button [disabled]="product.stock==0" class="card-link btn btn-primary">Satın Al</button>
     </div>
   </div>
+  <!-- Product End -->
 
   <!-- <ion-tabs>
     <ion-tab-bar slot="bottom">
