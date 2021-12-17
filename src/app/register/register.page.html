@@ -35,10 +35,10 @@
           <span class="text-danger" *ngIf="registerForm.get('password').errors.required">şifre gereli</span>
         </div>
       </div>
-      <button (click)="register()" [disabled]="!registerForm.valid" class="w-100 btn btn-lg btn-primary" type="submit">
+      <button (click)="register()" [disabled]="!registerForm.valid" class="w-100 btn btn-lg btn-primary mb-3" type="submit">
         Kayıt Ol
       </button>
-
+      <a style="text-decoration: none;" routerLink="/login">Hesabım zaten var</a>
       <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
     </form>
   </main>
