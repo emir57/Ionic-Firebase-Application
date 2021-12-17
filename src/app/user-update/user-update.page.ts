@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-update',
@@ -15,7 +16,8 @@ export class UserUpdatePage implements OnInit {
   constructor(
     private formBuilder:FormBuilder,
     private modalController:ModalController,
-    private toastController:ToastController
+    private toastController:ToastController,
+    private userService:UserService
   ) { }
 
   ngOnInit() {
@@ -32,5 +34,25 @@ export class UserUpdatePage implements OnInit {
       roles: [this.user.roles, []],
     })
   }
+  saveUser(){
+    if(this.userUpdateForm.valid){
+      let user = Object.assign({},this.userUpdateForm.value);
+      this.userService.updateUser(user).finally(()=>{
+        window.location.reload();
+      })
+      this.presentToast(`${user.firstName} ${user.lastName} başarıyla güncellendi`)
+      this.modalController.dismiss();
+    }
+  }
 
+  dismiss(){
+    this.modalController.dismiss();
+  }
+  async presentToast(message:string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
 }

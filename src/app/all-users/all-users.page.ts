@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
 import { UserAddPage } from '../user-add/user-add.page';
+import { UserUpdatePage } from '../user-update/user-update.page';
 
 @Component({
   selector: 'app-all-users',
@@ -33,8 +34,10 @@ export class AllUsersPage implements OnInit {
 
   async showUpdateModal(user:User){
     const modal = await this.modalController.create({
-      component:User
-    })
+      component:UserUpdatePage,
+      componentProps:{user:user}
+    });
+    return await modal.present();
   }
 
 }
