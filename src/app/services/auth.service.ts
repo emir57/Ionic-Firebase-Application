@@ -45,19 +45,20 @@ export class AuthService {
       console.log(user);
     })
   }
-  getCurrentUser():Observable<any>{
-    let user:User
+  getCurrentUser():Observable<User>{
+    let currentUser:User
     let currentUserEmail="";
     this.getUserEmail().subscribe(email=>{
       currentUserEmail = email;
     })
     const subject = new Subject<any>();
-    const collection:any = this.firebaseStore.collection("users").get()
-    collection.subscribe(doc=>{
-      doc.forEach(d=>{
-        console.log(d.data())
-        // if(d.email)
-        subject.next(user);
+    console.log(currentUserEmail)
+    this.getUsers().subscribe(users=>{
+      users.forEach(user=>{
+        if(user.email === currentUserEmail){
+          currentUser = user
+          subject.next(currentUser);
+        }
       })
     })
     return subject.asObservable();
@@ -82,6 +83,8 @@ export class AuthService {
   setRememberMe(loginModel:any){
     if(loginModel.rememberMe){
       localStorage.setItem("user",JSON.stringify(loginModel))
+    }else{
+      sessionStorage.setItem("user",JSON.stringify(loginModel))
     }
   }
   removeRememberMe(){
@@ -89,5 +92,12 @@ export class AuthService {
     if(storage){
       localStorage.removeItem("user");
     }
+  }
+  checkRemember():Boolean{
+    const storage = localStorage.getItem("user")
+    if(storage){
+      return true;
+    }
+    return false;
   }
 }
