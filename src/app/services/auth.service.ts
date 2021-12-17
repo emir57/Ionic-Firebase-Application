@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user';
 
@@ -9,11 +10,13 @@ import { User } from '../models/user';
 export class AuthService {
 
   constructor(
-    private firebaseAuth:AngularFireAuth
+    private firebaseAuth:AngularFireAuth,
+    private firebaseStore:AngularFirestore
   ) { }
 
-  register(){
-    return this.firebaseAuth.createUserWithEmailAndPassword("emir@hotmail.com","123456");
+  register(user:User){
+    this.firebaseStore.collection("users").add(user);
+    return this.firebaseAuth.createUserWithEmailAndPassword(user.email,user.password);
   }
   logout(){
     return this.firebaseAuth.signOut();
