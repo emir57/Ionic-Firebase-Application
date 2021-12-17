@@ -10,12 +10,12 @@ export class UserService {
 
   constructor(
     private firebaseStore:AngularFirestore,
-    private authService:AuthService
   ) { }
 
   addUser(user:User){
-    this.authService.register(user);
-    return this.firebaseStore.collection("users").add(user);
+    user.roles="User"
+    const users = this.firebaseStore.collection("users")
+    return users.add(user);
   }
   updateUser(user:User){
     return this.firebaseStore.collection("users").doc(user.id).update(user);

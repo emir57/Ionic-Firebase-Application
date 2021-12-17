@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../models/user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,28 +12,14 @@ export class AuthService {
 
   constructor(
     private firebaseAuth: AngularFireAuth,
-    private firebaseStore: AngularFirestore
+    private firebaseStore: AngularFirestore,
+    private userService:UserService
   ) { }
   isLogin = false;
   isAuthentication(): boolean {
     return this.isLogin;
   }
-
-  // userGetRoles(user:User):Observable<any>{
-  //   const subject = new Subject<any>();
-  //   this.get
-  // }
-
   register(user: User) {
-    this.firebaseStore.collection("users").add(
-      Object.assign({
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        password:user.password,
-        roles: "User"
-      })
-    );
     return this.firebaseAuth.createUserWithEmailAndPassword(user.email, user.password);
   }
   logout() {

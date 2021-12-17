@@ -37,12 +37,16 @@ export class UserAddPage implements OnInit {
   saveUser() {
     if (this.userAddForm.valid) {
       let user = Object.assign({}, this.userAddForm.value)
+      this.authService.register(user)
+      .finally(() => {
+
+      })
       this.userService.addUser(user)
-        .finally(() => {
-          window.location.reload();
-        })
-      this.presentToast(`${user.firstName} ${user.lastName} Başarıyla Kaydedildi`)
+      .finally(() => {
+          this.presentToast(`${user.firstName} ${user.lastName} Başarıyla Kaydedildi`)
+      })
       this.modalController.dismiss();
+      // window.location.reload();
     }
   }
 

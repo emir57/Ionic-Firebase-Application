@@ -86,7 +86,6 @@ export class UpdateProductsPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-
           }
         }, {
           text: 'SİL',
@@ -97,7 +96,6 @@ export class UpdateProductsPage implements OnInit {
         }
       ]
     });
-
     await alert.present();
   }
 }
