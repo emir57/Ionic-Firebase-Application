@@ -10,11 +10,11 @@ import { User } from '../models/user';
 export class AuthService {
 
   constructor(
-    private firebaseAuth:AngularFireAuth,
-    private firebaseStore:AngularFirestore
+    private firebaseAuth: AngularFireAuth,
+    private firebaseStore: AngularFirestore
   ) { }
-  isLogin=false;
-  isAuthentication():boolean{
+  isLogin = false;
+  isAuthentication(): boolean {
     return this.isLogin;
   }
 
@@ -23,39 +23,39 @@ export class AuthService {
   //   this.get
   // }
 
-  register(user:User){
+  register(user: User) {
     this.firebaseStore.collection("users").add(
       Object.assign({
-        email:user.email,
-        firstName:user.firstName,
-        lastName:user.lastName,
-        roles:"User"
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        roles: "User"
       })
     );
-    return this.firebaseAuth.createUserWithEmailAndPassword(user.email,user.password);
+    return this.firebaseAuth.createUserWithEmailAndPassword(user.email, user.password);
   }
-  logout(){
+  logout() {
     return this.firebaseAuth.signOut();
   }
-  login(user:User){
-    return this.firebaseAuth.signInWithEmailAndPassword(user.email,user.password)
+  login(user: User) {
+    return this.firebaseAuth.signInWithEmailAndPassword(user.email, user.password)
   }
-  getUsers():Observable<any>{
-    let users:User[]=[]
+  getUsers(): Observable<any> {
+    let users: User[] = []
     const subject = new Subject<any>();
-    const collection:any = this.firebaseStore.collection("users").get()
-    collection.subscribe(doc=>{
-      doc.forEach(d=>users.push(Object.assign({},d.data())))
+    const collection: any = this.firebaseStore.collection("users").get()
+    collection.subscribe(doc => {
+      doc.forEach(d => users.push(Object.assign({}, d.data())))
       subject.next(users);
     })
     return subject.asObservable();
   }
-  getuser(email:string){
-    let getUser:User
+  getuser(email: string) {
+    let getUser: User
     const subject = new Subject<any>();
-    this.getUsers().subscribe(users=>{
-      users.forEach(user=>{
-        if(user.email === email){
+    this.getUsers().subscribe(users => {
+      users.forEach(user => {
+        if (user.email === email) {
           getUser = user
           subject.next(getUser);
         }
@@ -63,17 +63,17 @@ export class AuthService {
     })
     return subject.asObservable();
   }
-  getCurrentUser():Observable<User>{
-    let currentUser:User
-    let currentUserEmail="";
-    this.getUserEmail().subscribe(email=>{
+  getCurrentUser(): Observable<User> {
+    let currentUser: User
+    let currentUserEmail = "";
+    this.getUserEmail().subscribe(email => {
       currentUserEmail = email;
     })
     const subject = new Subject<any>();
     console.log(currentUserEmail)
-    this.getUsers().subscribe(users=>{
-      users.forEach(user=>{
-        if(user.email === currentUserEmail){
+    this.getUsers().subscribe(users => {
+      users.forEach(user => {
+        if (user.email === currentUserEmail) {
           currentUser = user
           subject.next(currentUser);
         }
@@ -81,52 +81,61 @@ export class AuthService {
     })
     return subject.asObservable();
   }
-  isInRole(user:User,role:string) {
+  isInRole(user: User, role: string) {
     let check = false;
-    let roles= user.roles.split(",");
-    roles.forEach(r=>{
-      if(r.toLocaleLowerCase()===role.toLocaleLowerCase()){
-        check=true;
+    let roles = user.roles.split(",");
+    roles.forEach(r => {
+      if (r.toLocaleLowerCase() === role.toLocaleLowerCase()) {
+        check = true;
       }
     })
     return check;
   }
-  resetPassword(email:string){
+  resetPassword(email: string) {
     return this.firebaseAuth.sendPasswordResetEmail(email);
   }
-  private getUserEmail():Observable<any>{
+  private getUserEmail(): Observable<any> {
     const subject = new Subject<any>();
-    this.firebaseAuth.user.subscribe(doc=>{
+    this.firebaseAuth.user.subscribe(doc => {
       subject.next(doc.email);
     })
     return subject.asObservable();
   }
 
 
-  setErrorMessage(error:any):string{
-    if(error.code=="auth/wrong-password"){
-      return "şifre yanlış";
-    }else if(error.code=="auth/user-not-found"){
-      return "kullanıcı bulunamadı";
+  setErrorMessage(error: any): string {
+    const code = error.code;
+    switch (code) {
+      case "auth/wrong-password":
+        return "şifre yanlış";
+        break;
+      case "auth/user-not-found":
+        return "kullanıcı bulunamadı";
+        break;
+      case "auth/invalid-email":
+        return "geçersiz eposta"
+        break;
+      default:
+        break;
     }
   }
 
-  setRememberMe(loginModel:any){
-    if(loginModel.rememberMe){
-      localStorage.setItem("user",JSON.stringify(loginModel))
-    }else{
-      sessionStorage.setItem("user",JSON.stringify(loginModel))
+  setRememberMe(loginModel: any) {
+    if (loginModel.rememberMe) {
+      localStorage.setItem("user", JSON.stringify(loginModel))
+    } else {
+      sessionStorage.setItem("user", JSON.stringify(loginModel))
     }
   }
-  removeRememberMe(){
+  removeRememberMe() {
     const storage = localStorage.getItem("user")
-    if(storage){
+    if (storage) {
       localStorage.removeItem("user");
     }
   }
-  checkRemember():Boolean{
+  checkRemember(): Boolean {
     const storage = localStorage.getItem("user")
-    if(storage){
+    if (storage) {
       return true;
     }
     return false;
