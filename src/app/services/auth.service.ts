@@ -24,7 +24,6 @@ export class AuthService {
   login(user:User){
     return this.firebaseAuth.signInWithEmailAndPassword(user.email,user.password)
   }
-
   getUsers():Observable<any>{
     let users:User[]=[]
     const subject = new Subject<any>();
@@ -42,11 +41,13 @@ export class AuthService {
   }
   getCurrentUser():Observable<any>{
     let user:User
-    let currentUserEmail = this.getUserEmail();
+    let currentUserEmail="";
+    this.getUserEmail().subscribe(email=>{
+      currentUserEmail = email;
+    })
     const subject = new Subject<any>();
     const collection:any = this.firebaseStore.collection("users").get()
     collection.subscribe(doc=>{
-
       doc.forEach(d=>{
         console.log(d.data())
         // if(d.email)
