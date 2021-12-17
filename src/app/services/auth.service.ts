@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, Subject } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,9 @@ export class AuthService {
   logout(){
     return this.firebaseAuth.signOut();
   }
+  login(user:User){
+    return this.firebaseAuth.signInWithEmailAndPassword(user.email,user.password)
+  }
 
   getUserId():Observable<any>{
     const subject = new Subject<any>();
@@ -29,5 +33,14 @@ export class AuthService {
   getUsers(){
     const subject = new Subject<any>();
 
+  }
+
+
+  setErrorMessage(error:any):string{
+    if(error.code=="auth/wrong-password"){
+      return "şifre yanlış";
+    }else if(error.code=="auth/user-not-found"){
+      return "kullanıcı bulunamadı";
+    }
   }
 }

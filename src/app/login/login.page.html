@@ -1,9 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <main class="form-signin">
+    <form [formGroup]="loginForm">
+      <img class="mb-4" src="../../assets/logo.png" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 fw-normal">Giriş Yap</h1>
+      <div class="form-floating mb-3">
+        <input formControlName="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+        <label for="email">Eposta Adresi</label>
+        <div *ngIf="(loginForm.get('email').dirty || loginForm.get('email').touched) && loginForm.get('email').errors">
+          <span class="text-danger" *ngIf="loginForm.get('email').errors.email">geçersiz eposta</span>
+          <span class="text-danger" *ngIf="loginForm.get('email').errors.required">eposta gerekli</span>
+        </div>
+      </div>
+      <div class="form-floating mb-3">
+        <input formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
+        <label for="password">Şifre</label>
+        <div *ngIf="(loginForm.get('password').dirty || loginForm.get('password').touched) && loginForm.get('password').errors">
+          <span class="text-danger" *ngIf="loginForm.get('password').errors.minlength">en az 6 karakter olabilir</span>
+          <span class="text-danger" *ngIf="loginForm.get('password').errors.required">şifre gereli</span>
+        </div>
+      </div>
+
+      <div class="checkbox mb-3">
+        <label>
+          <input formControlName="rememberMe" type="checkbox" value="remember-me"> Beni Hatırla
+        </label>
+      </div>
+      <button (click)="login()" [disabled]="!loginForm.valid" class="w-100 btn btn-lg btn-primary" type="submit">
+        Giriş Yap
+      </button>
+
+      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+    </form>
+  </main>
 
 </ion-content>
