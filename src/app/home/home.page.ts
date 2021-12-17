@@ -9,6 +9,7 @@ import { CategoryAddPage } from '../category-add/category-add.page';
 import { Category } from '../models/category';
 import { Product } from '../models/product';
 import { ProductAddPage } from '../product-add/product-add.page';
+import { AuthService } from '../services/auth.service';
 import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
 @Component({
@@ -26,10 +27,13 @@ export class HomePage implements OnInit{
     public modalController:ModalController,
     private menu:MenuController,
     private productService:ProductService,
-    private categoryService:CategoryService
+    private categoryService:CategoryService,
+    private authService:AuthService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(){
+    this.authService.logout();
+    this.authService.getUserId().subscribe(doc=>console.log(doc))
     this.getProducts().subscribe(products=>{
       this.products = products;
     })
