@@ -15,7 +15,13 @@ export class AuthService {
   ) { }
 
   register(user:User){
-    this.firebaseStore.collection("users").add(user);
+    this.firebaseStore.collection("users").add(
+      Object.assign({
+        email:user.email,
+        firstName:user.firstName,
+        lastName:user.lastName
+      })
+    );
     return this.firebaseAuth.createUserWithEmailAndPassword(user.email,user.password);
   }
   logout(){
