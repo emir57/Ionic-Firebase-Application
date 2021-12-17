@@ -119,6 +119,7 @@ export class AuthService {
 
   setRememberMe(loginModel: any) {
     this.getuser(loginModel.email).subscribe(user => {
+      user.password="";
       if (loginModel.rememberMe) {
         localStorage.setItem("user", JSON.stringify(user))
       } else {
