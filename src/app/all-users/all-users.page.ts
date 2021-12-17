@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
+import { UserAddPage } from '../user-add/user-add.page';
 
 @Component({
   selector: 'app-all-users',
@@ -25,11 +26,12 @@ export class AllUsersPage implements OnInit {
 
   async showAddUserModal(){
     const modal = await this.modalController.create({
-      component:
+      component:UserAddPage
     })
+    return await modal.present();
   }
 
-  async showUpdateModal(){
+  async showUpdateModal(user:User){
 
   }
 
