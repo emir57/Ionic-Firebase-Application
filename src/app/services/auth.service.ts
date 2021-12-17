@@ -18,6 +18,11 @@ export class AuthService {
     return this.isLogin;
   }
 
+  // userGetRoles(user:User):Observable<any>{
+  //   const subject = new Subject<any>();
+  //   this.get
+  // }
+
   register(user:User){
     this.firebaseStore.collection("users").add(
       Object.assign({
@@ -45,10 +50,18 @@ export class AuthService {
     })
     return subject.asObservable();
   }
-  getuser(){
-    let currentUserEmail = this.firebaseAuth.currentUser.then(user=>{
-      console.log(user);
+  getuser(email:string){
+    let getUser:User
+    const subject = new Subject<any>();
+    this.getUsers().subscribe(users=>{
+      users.forEach(user=>{
+        if(user.email === email){
+          getUser = user
+          subject.next(getUser);
+        }
+      })
     })
+    return subject.asObservable();
   }
   getCurrentUser():Observable<User>{
     let currentUser:User

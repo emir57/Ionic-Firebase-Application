@@ -39,7 +39,6 @@ export class HomePage implements OnInit{
     this.authService.getCurrentUser().subscribe(user=>{
       this.currentUser = user
     })
-    // this.authService.getUserEmail().subscribe(doc=>console.log(doc))
     this.getProducts().subscribe(products=>{
       this.products = products;
     })
