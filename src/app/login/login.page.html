@@ -25,12 +25,12 @@
           <input formControlName="rememberMe" type="checkbox" value="remember-me"> Beni Hatırla
         </label>
       </div>
-      <button (click)="login()" [disabled]="!loginForm.valid" class="w-100 btn btn-lg btn-primary" type="submit">
+      <button (click)="login()" [disabled]="!loginForm.valid" class="w-100 btn btn-lg btn-primary mb-3" type="submit">
         Giriş Yap
       </button>
-      <a routerLink="/register">Hesabın yok mu?</a>
+      <a routerLink="/register" style="text-decoration: none;" class="mb-3">Hesabın yok mu?</a>
       <br>
-      <a >Şifremi Unuttum</a>
+      <a style="text-decoration: none;" href="#">Şifremi Unuttum</a>
       <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
     </form>
   </main>
