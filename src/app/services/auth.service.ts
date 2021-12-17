@@ -43,4 +43,16 @@ export class AuthService {
       return "kullanıcı bulunamadı";
     }
   }
+
+  setRememberMe(loginModel:any){
+    if(loginModel.rememberMe){
+      localStorage.setItem("user",JSON.stringify(loginModel))
+    }
+  }
+  removeRememberMe(){
+    const storage = localStorage.getItem("user")
+    if(storage){
+      localStorage.removeItem("user");
+    }
+  }
 }

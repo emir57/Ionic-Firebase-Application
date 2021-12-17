@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, ModalController } from '@ionic/angular';
+import { MenuController, ModalController, ToastController } from '@ionic/angular';
 import { present } from '@ionic/core/dist/types/utils/overlays';
 import { Observable, Subject } from 'rxjs';
 import { AllCategoriesPage } from '../all-categories/all-categories.page';
@@ -28,7 +28,9 @@ export class HomePage implements OnInit{
     private menu:MenuController,
     private productService:ProductService,
     private categoryService:CategoryService,
-    private authService:AuthService
+    private authService:AuthService,
+    private router:Router,
+    private toastController:ToastController
   ) {}
 
   ngOnInit(){
@@ -91,6 +93,23 @@ export class HomePage implements OnInit{
       component:AllProductsPage
     })
     return await modal.present();
+  }
+
+  logout(){
+    this.authService.logout().finally(()=>{
+      this.presentToast("Çıkış Yapılıyor..")
+      this.router.navigate(["/login"])
+    })
+  }
+
+
+
+  async presentToast(message:string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }
