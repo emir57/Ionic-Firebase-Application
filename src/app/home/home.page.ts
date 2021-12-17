@@ -19,8 +19,7 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-
-  currentUser:User
+  currentUser:User;
   selectedCategoryId="0";
   searchString="";
   products:Product[]=[]
@@ -33,16 +32,18 @@ export class HomePage implements OnInit{
     private authService:AuthService,
     private router:Router,
     private toastController:ToastController
-  ) {}
+  ) {
+  }
 
-  ngOnInit(){
+  async ngOnInit(){
     this.currentUser = this.authService.getUserInStorage();
-    this.getProducts().subscribe(products=>{
+    this.getProducts().subscribe( products=>{
       this.products = products;
     })
-    this.getCategories().subscribe(categories=>{
+    this.getCategories().subscribe( categories=>{
       this.categories = categories;
     })
+
   }
   getProducts():Observable<any>{
     let products:Product[]=[]
@@ -96,7 +97,7 @@ export class HomePage implements OnInit{
     return await modal.present();
   }
 
-  async logout(){
+  logout(){
     this.modalController.dismiss();
     this.authService.logout()
     .catch(error=>{

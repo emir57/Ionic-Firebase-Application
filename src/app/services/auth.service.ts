@@ -13,7 +13,7 @@ export class AuthService {
   constructor(
     private firebaseAuth: AngularFireAuth,
     private firebaseStore: AngularFirestore,
-    private userService:UserService
+    private userService: UserService
   ) { }
   isLogin = false;
   isAuthentication(): boolean {
@@ -33,7 +33,7 @@ export class AuthService {
     const subject = new Subject<any>();
     const collection: any = this.firebaseStore.collection("users").get()
     collection.subscribe(doc => {
-      doc.forEach(d => users.push(Object.assign({id:d.id}, d.data())))
+      doc.forEach(d => users.push(Object.assign({ id: d.id }, d.data())))
       subject.next(users);
     })
     return subject.asObservable();
@@ -107,19 +107,19 @@ export class AuthService {
 
   setRememberMe(loginModel: any) {
     this.getuser(loginModel.email).subscribe(user => {
-      user.password="";
-      if (loginModel.rememberMe) {
-        localStorage.setItem("user", JSON.stringify(user))
-      } else {
-        sessionStorage.setItem("user", JSON.stringify(user))
-      }
+      user.password = "";
+      localStorage.setItem("user", JSON.stringify(user))
     })
   }
-  getUserInStorage():User{
+  getUserInStorage(): User {
     let session = sessionStorage.getItem("user");
     let local = localStorage.getItem("user");
-    if(session) return JSON.parse(session);
-    else if(local) return JSON.parse(local);
+    if (session) {
+      return JSON.parse(session);
+    }
+    if (local) {
+      return JSON.parse(local);
+    }
   }
   removeRememberMe() {
     const storage = localStorage.getItem("user")

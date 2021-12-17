@@ -11,53 +11,56 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPage implements OnInit {
 
-  loginForm:FormGroup
+  loginForm: FormGroup
   constructor(
-    private formBuilder:FormBuilder,
-    private router:Router,
-    private authService:AuthService,
-    private toastController:ToastController,
-    private alertController:AlertController
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private toastController: ToastController,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
     this.createLoginForm();
   }
 
-  createLoginForm(){
-    this.loginForm=this.formBuilder.group({
-      email:["lolemir060@hotmail.com",[Validators.required,Validators.email]],
-      password:['123456',[Validators.required,Validators.minLength(6)]],
-      rememberMe:[false]
+  createLoginForm() {
+    this.loginForm = this.formBuilder.group({
+      email: ["lolemir060@hotmail.com", [Validators.required, Validators.email]],
+      password: ['123456', [Validators.required, Validators.minLength(6)]],
+      rememberMe: [false]
     })
   }
-  login(){
-    if(this.loginForm.valid){
-      let isSuccess=true;
-      let loginModel = Object.assign({},this.loginForm.value);
+  login() {
+    if (this.loginForm.valid) {
+      let isSuccess = true;
+      let loginModel = Object.assign({}, this.loginForm.value);
       this.authService.login(loginModel)
-        .catch(error=>{
-          isSuccess=false;
+        .catch(error => {
+          isSuccess = false;
           this.presentToast(this.authService.setErrorMessage(error));
-        }).finally(()=>{
-          if(isSuccess){
+        }).finally(async () => {
+          if (isSuccess) {
             this.authService.setRememberMe(loginModel)
-            this.authService.isLogin=true;
-            this.presentToast("Giriş Başarılı")
-            this.router.navigate(["home"])
+            setTimeout(() => {
+              this.authService.isLogin = true;
+              this.presentToast("Giriş Başarılı")
+              this.router.navigate(["home"])
+            }, 1000);
+
           }
         })
     }
   }
 
-  async presentToast(message:string) {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
       duration: 2000
     });
     toast.present();
   }
-  resetPassword(){
+  resetPassword() {
     this.presentAlertPrompt();
   }
 
@@ -68,7 +71,7 @@ export class LoginPage implements OnInit {
         {
           name: 'email',
           type: 'email',
-          attributes:{required:false},
+          attributes: { required: false },
           placeholder: 'name@example.com'
         },
       ],
@@ -83,20 +86,19 @@ export class LoginPage implements OnInit {
         }, {
           text: 'Gönder',
           handler: (value) => {
-            let check=true;
+            let check = true;
             this.authService.resetPassword(value.email)
-              .catch(error=>{
-                check=false;
+              .catch(error => {
+                check = false;
                 console.log(error)
                 this.presentToast(this.authService.setErrorMessage(error))
-              }).finally(()=>{
-                if(check){
+              }).finally(() => {
+                if (check) {
                   this.presentToast("Başarıyla şifre sıfırlama isteği gönderildi.Spam kutusunu kontrol etmeyi unutmayınız.")
-                }else{
+                } else {
                   this.presentToast("Bir hata oluştu");
                 }
               })
-
           }
         }
       ]
