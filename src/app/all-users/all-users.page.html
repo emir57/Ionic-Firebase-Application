@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Tüm Kullanıcılar</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showAddUserModal()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Kullanıcı Ekle
+      </ion-button>
+      <ion-button routerLink="/home">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar showCancelButton="focus" placeholder="Kullanıcı Arayınız" [(ngModel)]="searchString"></ion-searchbar>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Ad ve Soyad</th>
+        <th>Eposta</th>
+        <th>Roller</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr  *ngFor="let user of users">
+        <td>{{user.firstName}} {{user.lastName}}</td>
+        <td>
+          {{user.email}}
+        </td>
+        <td>{{user.roles}}</td>
+        <td>
+          <ion-button (click)="showUpdateModal(user)" expand="block" fill="clear" shape="round">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ion-content>

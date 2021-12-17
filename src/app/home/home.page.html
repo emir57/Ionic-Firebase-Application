@@ -23,14 +23,20 @@
       </ion-item>
       <ion-item *ngIf="isInRoleAdmin()">
         <ion-button routerLink="/all-products" expand="block" fill="clear" shape="round">
-          <ion-icon name="bar-chart-outline"></ion-icon>
+          <ion-icon name="cart-outline"></ion-icon>
           Tüm Ürünler
         </ion-button>
       </ion-item>
       <ion-item *ngIf="isInRoleAdmin()">
         <ion-button routerLink="/all-categories" expand="block" fill="clear" shape="round">
-          <ion-icon name="bar-chart-outline"></ion-icon>
+          <ion-icon name="apps-outline"></ion-icon>
           Tüm Kategoriler
+        </ion-button>
+      </ion-item>
+      <ion-item *ngIf="isInRoleAdmin()">
+        <ion-button routerLink="/all-users" expand="block" fill="clear" shape="round">
+          <ion-icon name="people-outline"></ion-icon>
+          Tüm Kullanıcılar
         </ion-button>
       </ion-item>
       <ion-item>

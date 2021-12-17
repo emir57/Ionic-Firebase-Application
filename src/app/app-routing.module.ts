@@ -54,6 +54,10 @@ const routes: Routes = [
     loadChildren: () => import('./category-update/category-update.module').then( m => m.CategoryUpdatePageModule),
     canActivate:[SecurityGuard,AdminGuard]
   },
+  {
+    path: 'all-users',
+    loadChildren: () => import('./all-users/all-users.module').then( m => m.AllUsersPageModule)
+  },
 
 ];
 
