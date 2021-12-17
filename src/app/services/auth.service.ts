@@ -13,6 +13,10 @@ export class AuthService {
     private firebaseAuth:AngularFireAuth,
     private firebaseStore:AngularFirestore
   ) { }
+  isLogin=false;
+  isAuthentication():boolean{
+    return this.isLogin;
+  }
 
   register(user:User){
     this.firebaseStore.collection("users").add(
