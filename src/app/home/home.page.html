@@ -45,7 +45,7 @@
 <ion-router-outlet main></ion-router-outlet>
 
 <ion-content [fullscreen]="true">
-  <div style="margin-bottom:30%">
+  <div style="margin-bottom:10%">
     <ion-searchbar showCancelButton="focus" placeholder="Ürün Ara" [(ngModel)]="searchString"></ion-searchbar>
     <ion-list>
       <ion-item>
@@ -72,7 +72,7 @@
       </p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item text-primary" *ngIf="product.stock!=1"><i>{{product.stock}} Adet Kaldı</i></li>
+      <li class="list-group-item text-primary" *ngIf="product.stock!=1 && product.stock !=0"><i>{{product.stock}} Adet Kaldı</i></li>
       <li class="list-group-item text-warning" *ngIf="product.stock==1"><i>Son 1 Adet</i></li>
       <li class="list-group-item text-danger" *ngIf="product.stock==0"><i>Tükendi</i></li>
     </ul>
@@ -82,18 +82,4 @@
     </div>
   </div>
   <!-- Product End -->
-
-  <!-- <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button  tab="/categoryadd">
-        <ion-icon name="add-outline"></ion-icon>
-        <ion-label>Kategori Ekle</ion-label>
-      </ion-tab-button>
-
-      <ion-tab-button tab="/productadd">
-        <ion-icon name="add-outline"></ion-icon>
-        <ion-label>Ürün Ekle </ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs> -->
 </ion-content>
