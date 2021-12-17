@@ -45,7 +45,7 @@ export class AuthService {
     const subject = new Subject<any>();
     const collection: any = this.firebaseStore.collection("users").get()
     collection.subscribe(doc => {
-      doc.forEach(d => users.push(Object.assign({}, d.data())))
+      doc.forEach(d => users.push(Object.assign({id:d.id}, d.data())))
       subject.next(users);
     })
     return subject.asObservable();

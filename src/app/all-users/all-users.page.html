@@ -18,6 +18,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>Id</th>
         <th>Ad ve Soyad</th>
         <th>Eposta</th>
         <th>Roller</th>
@@ -26,6 +27,7 @@
     </thead>
     <tbody>
       <tr  *ngFor="let user of users">
+        <td>{{user.id}}</td>
         <td>{{user.firstName}} {{user.lastName}}</td>
         <td>
           {{user.email}}
