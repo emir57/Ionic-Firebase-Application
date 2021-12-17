@@ -58,6 +58,10 @@ const routes: Routes = [
     path: 'all-users',
     loadChildren: () => import('./all-users/all-users.module').then( m => m.AllUsersPageModule)
   },
+  {
+    path: 'user-add',
+    loadChildren: () => import('./user-add/user-add.module').then( m => m.UserAddPageModule)
+  },
 
 ];
 
