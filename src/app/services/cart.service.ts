@@ -14,28 +14,15 @@ export class CartService {
 
   addToCart(cart: Cart) {
     this.getCart(cart.id).subscribe(getCart => {
-      if (getCart.userId === cart.userId && getCart.productId === cart.productId) {
+      if (getCart.userId == cart.userId && getCart.productId == cart.productId) {
         cart.quantity += 1;
         return this.updateCart(cart)
-      } else {
+      } else if(getCart.userId != cart.userId && getCart.productId != cart.productId){
         const cartdatabase = this.fireStore.collection("carts");
         return cartdatabase.add(cart);
       }
     })
-    // this.getCarts().subscribe(carts => {
-    //   carts.forEach(c => {
-    //     if (c.userId === cart.userId && c.productId === cart.productId) {
-    //       c.quantity += 1;
-    //       console.log(c)
-    //       return this.updateCart(c)
-    //     } else {
-    //       const cartdatabase = this.fireStore.collection("carts");
-    //       return cartdatabase.add(cart);
-    //     }
-    //   })
-    // })
   }
-
   deleteCart(id: string) {
     const carts = this.fireStore.collection("carts")
     this.getCart(id).subscribe(cart => {
@@ -46,6 +33,10 @@ export class CartService {
         carts.doc(id).delete();
       }
     })
+  }
+  deleteCartAll(id:string){
+    const carts = this.fireStore.collection("carts")
+    carts.doc(id).delete();
   }
   getCart(id: string): Observable<any> {
     const subject = new Subject<any>();

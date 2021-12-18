@@ -4,6 +4,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { CartModel } from '../models/cartModel';
 import { Product } from '../models/product';
 import { User } from '../models/user';
+import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class PaymentPage implements OnInit {
     private modalController: ModalController,
     private formBuilder: FormBuilder,
     private orderService: OrderService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private cartService:CartService
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,10 @@ export class PaymentPage implements OnInit {
           this.presentToast("Ödeme Başarılı")
         })
       }, 5000);
+      this.carts.forEach(cart=>{
+        this.cartService.deleteCartAll(cart.id);
+      })
+
     }
   }
 

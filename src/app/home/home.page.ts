@@ -21,110 +21,110 @@ import { ProductService } from '../services/product.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
-  currentUser:User;
-  selectedCategoryId="0";
-  searchString="";
-  products:Product[]=[]
-  categories:Category[]=[]
+export class HomePage implements OnInit {
+  currentUser: User;
+  selectedCategoryId = "0";
+  searchString = "";
+  products: Product[] = []
+  categories: Category[] = []
   constructor(
-    public modalController:ModalController,
-    private menu:MenuController,
-    private productService:ProductService,
-    private categoryService:CategoryService,
-    private authService:AuthService,
-    private router:Router,
-    private toastController:ToastController,
-    private cartService:CartService
+    public modalController: ModalController,
+    private menu: MenuController,
+    private productService: ProductService,
+    private categoryService: CategoryService,
+    private authService: AuthService,
+    private router: Router,
+    private toastController: ToastController,
+    private cartService: CartService
   ) {
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
     this.currentUser = this.authService.getUserInStorage();
-    this.getProducts().subscribe( products=>{
+    this.getProducts().subscribe(products => {
       this.products = products;
     })
-    this.getCategories().subscribe( categories=>{
+    this.getCategories().subscribe(categories => {
       this.categories = categories;
     })
 
   }
-  getProducts():Observable<any>{
-    let products:Product[]=[]
+  getProducts(): Observable<any> {
+    let products: Product[] = []
     const subject = new Subject<any>();
-    this.productService.getProducts().subscribe(doc=>{
-      doc.forEach(d=>products.push(Object.assign({id:d.id},d.data())))
+    this.productService.getProducts().subscribe(doc => {
+      doc.forEach(d => products.push(Object.assign({ id: d.id }, d.data())))
       subject.next(products);
     })
     return subject.asObservable();
   }
-  getCategories():Observable<any>{
-    let categories:Category[]=[]
+  getCategories(): Observable<any> {
+    let categories: Category[] = []
     const subject = new Subject<any>();
-    this.categoryService.getCategories().subscribe(doc=>{
-      doc.forEach(d=>categories.push(Object.assign({id:d.id},d.data())))
+    this.categoryService.getCategories().subscribe(doc => {
+      doc.forEach(d => categories.push(Object.assign({ id: d.id }, d.data())))
       subject.next(categories);
     })
     return subject.asObservable();
   }
 
-  async productDetailModal(product:Product){
+  async productDetailModal(product: Product) {
     const modal = await this.modalController.create({
-      component:ProductDetailPage,
-      componentProps:{product:product}
+      component: ProductDetailPage,
+      componentProps: { product: product }
     })
     return await modal.present();
   }
 
-  async showProductAddModal(){
+  async showProductAddModal() {
     this.modalController.dismiss();
     const modal = await this.modalController.create({
-      component:ProductAddPage
+      component: ProductAddPage
     })
     return await modal.present();
   }
-  async showCategoryAddModal(){
+  async showCategoryAddModal() {
     this.modalController.dismiss();
     const modal = await this.modalController.create({
-      component:CategoryAddPage
+      component: CategoryAddPage
     })
     return await modal.present();
   }
 
-  openMenu(){
-    this.menu.enable(true,"first")
+  openMenu() {
+    this.menu.enable(true, "first")
     this.menu.open("first")
   }
 
-  async showAllCategories(){
+  async showAllCategories() {
     const modal = await this.modalController.create({
-      component:AllCategoriesPage
+      component: AllCategoriesPage
     })
     return await modal.present();
   }
-  async showAllProducts(){
+  async showAllProducts() {
     const modal = await this.modalController.create({
-      component:AllProductsPage
+      component: AllProductsPage
     })
     return await modal.present();
   }
 
-  logout(){
+  logout() {
     this.modalController.dismiss();
     this.authService.logout()
-    .catch(error=>{
-      console.log(error)
-    }).finally(()=>{
-      localStorage.removeItem("user");
-      sessionStorage.removeItem("user");
-      this.presentToast("Başarıyla çıkış yapıldı")
-    })
+      .catch(error => {
+        console.log(error)
+      }).finally(() => {
+        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
+        this.presentToast("Başarıyla çıkış yapıldı")
+      })
     this.router.navigate(["/login"])
   }
 
 
 
-  async presentToast(message:string) {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
       duration: 2000
@@ -132,19 +132,33 @@ export class HomePage implements OnInit{
     toast.present();
   }
 
-  isInRoleAdmin(){
+  isInRoleAdmin() {
     let user = this.authService.getUserInStorage();
-    return this.authService.isInRole(user,"Admin")
+    return this.authService.isInRole(user, "Admin")
   }
 
-  addToCart(product:Product){
-    let cart:Cart={
-      productId:product.id,
-      userId:this.currentUser.id,
-      quantity:1,
-    }
-    this.cartService.addToCart(cart)
+  addToCart(product: Product) {
+    let cart:Cart;
+    this.cartService.getCartsByUserId(this.currentUser.id).subscribe(getCart => {
+      getCart.forEach(c=>{
+        if (c.productId == product.id) {
+          cart= {
+            productId: product.id,
+            userId: this.currentUser.id,
+            quantity: 1,
+            id:c.id
+          }
+          this.cartService.addToCart(cart)
+        }else{
+          cart= {
+            productId: product.id,
+            userId: this.currentUser.id,
+            quantity: 1
+          }
+          this.cartService.addToCart(cart)
+        }
+      })
+    })
     this.presentToast("Başarıyla Sepete Eklendi");
   }
-
 }
