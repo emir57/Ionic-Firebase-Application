@@ -89,6 +89,10 @@ const routes: Routes = [
     loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule),
     canActivate:[SecurityGuard]
   },
+  {
+    path: 'all-orders',
+    loadChildren: () => import('./all-orders/all-orders.module').then( m => m.AllOrdersPageModule)
+  },
 
 ];
 
