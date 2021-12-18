@@ -20,6 +20,7 @@ export class ProductDetailPage implements OnInit {
 
   form:FormGroup
   currentUser:User
+  comments:Comment[]=[]
   constructor(
     private modalController:ModalController,
     private productService:ProductService,
@@ -33,6 +34,10 @@ export class ProductDetailPage implements OnInit {
   ngOnInit() {
     this.currentUser=this.authService.getUserInStorage();
     this.createForm();
+    this.commentService.getCommentsByProductId(this.product.id).subscribe(comments=>{
+      this.comments=comments;
+      console.log(this.comments)
+    })
   }
 
   dismiss(){
@@ -50,6 +55,7 @@ export class ProductDetailPage implements OnInit {
   }
   createForm(){
     this.form = this.formBuilder.group({
+      productId:[this.product.id,[]],
       userId:[this.currentUser.id,[]],
       message:['',[Validators.required]],
       isLike:[false,[]]
@@ -67,9 +73,9 @@ export class ProductDetailPage implements OnInit {
 
   commentDo(){
     if(this.form.valid){
-      console.log(this.form.value)
+      this.commentService.commentDo(this.form.value).finally(()=>{
+        this.presentToast("Başarıyla Değerlendi Teşekkür Ederiz");
+      })
     }
   }
-
-
 }
