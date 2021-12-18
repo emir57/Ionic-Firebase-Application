@@ -3,7 +3,7 @@ import { Product } from "./product";
 
 export interface Order{
   id?:string;
-  userId:string;
+  userEmail:string;
   totalPrice:number;
   addressText:string;
   city:string;
