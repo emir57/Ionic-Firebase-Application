@@ -5,15 +5,35 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button color="primary">
+      <ion-button color="primary" [disabled]="!form.valid">
         Öde
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form>
-
+<ion-content class="p-2">
+  <span class="text-primary">Toplam Ödenecek Fiyat {{totalPrice}}</span>
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">Kredi Kartı Numarası</ion-label>
+      <ion-input formControlName="creditCardNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">CVV</ion-label>
+      <ion-input formControlName="cvv"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Kredi Kartı Son Kullanım Tarihi</ion-label>
+      <ion-input formControlName="date"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Şehir</ion-label>
+      <ion-input formControlName="city"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Adres</ion-label>
+      <ion-textarea formControlName="addressText"></ion-textarea>
+    </ion-item>
   </form>
 </ion-content>
