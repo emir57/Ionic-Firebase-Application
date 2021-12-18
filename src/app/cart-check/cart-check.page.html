@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>cart-check</ion-title>
+    <ion-title>Alışverişi Tamamla</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="card mb-3" style="max-width: 540px;" *ngFor="let cart of carts">
+    <div class="row g-0">
+      <div class="col-4">
+        <img [src]="cart.product.imageUrl" class="img-fluid rounded-start" alt="cart.product.productName">
+      </div>
+      <div class="col-8">
+        <div class="card-body">
+          <h5 class="card-title">{{cart.product.productName}}</h5>
+          <p class="card-text">{{cart.product.description}}</p>
+          <div class="row">
+            <div class="col-4">
+              <p class="card-text"><span class="text-primary">{{cart.quantity}} Adet</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
