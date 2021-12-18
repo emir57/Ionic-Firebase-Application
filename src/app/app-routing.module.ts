@@ -79,6 +79,11 @@ const routes: Routes = [
     loadChildren: () => import('./my-carts/my-carts.module').then( m => m.MyCartsPageModule),
     canActivate:[SecurityGuard]
   },
+  {
+    path: 'cart-check',
+    loadChildren: () => import('./cart-check/cart-check.module').then( m => m.CartCheckPageModule),
+    canActivate:[SecurityGuard]
+  },
 
 ];
 
