@@ -145,6 +145,6 @@ export class HomePage implements OnInit {
       quantity:0
     }
     this.cartService.addToCart(cart)
-    this.presentToast("Başarıyla Sepete Eklendi");
+    
   }
 }
