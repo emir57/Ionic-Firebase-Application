@@ -91,7 +91,8 @@ const routes: Routes = [
   },
   {
     path: 'all-orders',
-    loadChildren: () => import('./all-orders/all-orders.module').then( m => m.AllOrdersPageModule)
+    loadChildren: () => import('./all-orders/all-orders.module').then( m => m.AllOrdersPageModule),
+    canActivate:[SecurityGuard,AdminGuard]
   },
 
 ];
