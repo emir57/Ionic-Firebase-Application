@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Cart } from '../models/cart';
 import { CommentModel } from '../models/commentModel';
@@ -29,7 +30,8 @@ export class ProductDetailPage implements OnInit {
     private authService:AuthService,
     private toastController:ToastController,
     private formBuilder:FormBuilder,
-    private commentService:CommentService
+    private commentService:CommentService,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -55,7 +57,11 @@ export class ProductDetailPage implements OnInit {
       quantity:0,
     }
     this.cartService.addToCart(cart)
-    this.presentToast("Başarıyla Sepete Eklendi")
+    this.presentToast("Sepete Yönlendiriliyorsunuz.")
+    setTimeout(() => {
+      this.router.navigate(["my-carts"])
+      this.modalController.dismiss();
+    }, 1000);
   }
   createForm(){
     this.form = this.formBuilder.group({
