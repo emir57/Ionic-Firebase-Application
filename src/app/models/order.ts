@@ -1,3 +1,4 @@
+import { CartModel } from "./cartModel";
 import { OrderedProduct } from "./orderedProduct";
 import { Product } from "./product";
 
@@ -8,5 +9,6 @@ export interface Order{
   addressText:string;
   city:string;
   orderDate:string;
-  products:OrderedProduct[]
+  products:OrderedProduct[],
+  carts:CartModel[]
 }

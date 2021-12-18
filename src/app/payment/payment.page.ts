@@ -55,13 +55,14 @@ export class PaymentPage implements OnInit {
     if (this.form.valid) {
       this.isOk = false;
       let products: Product[] = []
-      this.carts.forEach(c => {
-        products.push(Object.assign({ quantity: c.quantity }, c.product))
-      })
+      // this.carts.forEach(c => {
+      //   products.push(Object.assign({ quantity: c.quantity }, c.product))
+      // })
       let order = Object.assign(
         {
           userId: this.user.id,
-          products: products
+          products: products,
+          carts:this.carts
         },
         this.form.value)
       setTimeout(() => {
