@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductSearchPipe } from './product-search.pipe';
+import { UserSearchPipe } from './user-search.pipe';
 
 
 
 @NgModule({
-  declarations: [ProductSearchPipe],
+  declarations: [ProductSearchPipe, UserSearchPipe],
   imports: [
     CommonModule
   ],exports:[
