@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { Cart } from '../models/cart';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,27 +10,31 @@ import { Cart } from '../models/cart';
 export class CartService {
 
   constructor(
-    private fireStore: AngularFirestore
+    private fireStore: AngularFirestore,
+    private productService: ProductService
   ) { }
 
   addToCart(cart: Cart) {
-    let isUpdate = false;
-    this.getCarts().subscribe(carts => {
-      carts.forEach(c => {
-        if (cart.productId == c.productId && cart.userId == c.userId) {
-          c.quantity++;
-          isUpdate = true
-          this.updateCart(c).catch(error=>console.log(error))
-        }
-      })
-      if (!isUpdate) {
-        console.log("a")
-        const cartdatabase = this.fireStore.collection("carts");
-        cart.quantity += 1;
-        cartdatabase.add(cart)
+    this.productService.getProduct(cart.productId).subscribe(product => {
+      if (product.stock != 0) {
+        let isUpdate = false;
+        this.getCarts().subscribe(carts => {
+          carts.forEach(c => {
+            if (cart.productId == c.productId && cart.userId == c.userId) {
+              c.quantity++;
+              isUpdate = true
+              this.updateCart(c).catch(error => console.log(error))
+            }
+          })
+          if (!isUpdate) {
+            console.log("a")
+            const cartdatabase = this.fireStore.collection("carts");
+            cart.quantity += 1;
+            cartdatabase.add(cart)
+          }
+        })
       }
     })
-
   }
   deleteCart(id: string) {
     const carts = this.fireStore.collection("carts")
