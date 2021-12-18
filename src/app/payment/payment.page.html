@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-title>Ödeminizi Yapın</ion-title>
     <ion-buttons slot="end">
-      <ion-button color="primary" (click)="payment()" [disabled]="!form.valid">
+      <ion-button [disabled]="!isOk" color="primary" (click)="payment()" [disabled]="!form.valid">
+        <span *ngIf="!isOk" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Öde
       </ion-button>
     </ion-buttons>

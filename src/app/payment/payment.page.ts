@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CartModel } from '../models/cartModel';
 import { Product } from '../models/product';
@@ -16,6 +17,7 @@ export class PaymentPage implements OnInit {
   @Input() carts: CartModel[]
   @Input() user: User
 
+  isOk = true;
   totalPrice = 0;
   form: FormGroup
   constructor(
@@ -23,7 +25,8 @@ export class PaymentPage implements OnInit {
     private formBuilder: FormBuilder,
     private orderService: OrderService,
     private toastController: ToastController,
-    private cartService:CartService
+    private cartService: CartService,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -50,6 +53,7 @@ export class PaymentPage implements OnInit {
   }
   payment() {
     if (this.form.valid) {
+      this.isOk = false;
       let products: Product[] = []
       this.carts.forEach(c => {
         products.push(Object.assign({ quantity: c.quantity }, c.product))
@@ -64,11 +68,15 @@ export class PaymentPage implements OnInit {
         this.orderService.addOrder(order).finally(() => {
           this.presentToast("Ödeme Başarılı")
         })
-      }, 1000);
-      this.carts.forEach(cart=>{
-        this.cartService.deleteCartAll(cart.id);
-      })
-
+      }, 2000);
+      setTimeout(() => {
+        this.carts.forEach(cart => {
+          this.cartService.deleteCartAll(cart.id);
+        })
+        this.isOk = true;
+        this.router.navigate(["my-orders"])
+        this.modalController.dismiss();
+      }, 2000);
     }
   }
 
