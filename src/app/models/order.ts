@@ -6,5 +6,6 @@ export interface Order{
   totalPrice:number;
   addressText:string;
   city:string;
+  date:Date;
   products:Product[]
 }
