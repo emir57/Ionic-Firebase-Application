@@ -6,6 +6,7 @@ import { Product } from '../models/product';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
+import { CommentService } from '../services/comment.service';
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
 
@@ -25,7 +26,8 @@ export class ProductDetailPage implements OnInit {
     private cartService:CartService,
     private authService:AuthService,
     private toastController:ToastController,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder,
+    private commentService:CommentService
   ) { }
 
   ngOnInit() {
