@@ -42,7 +42,7 @@ export class OrderService {
       }
     })
     let today = new Date
-    order.orderDate= today;
+    order.orderDate= today.toLocaleDateString();
     const orders = this.fireStore.collection("orders");
     return orders.add(order);
   }

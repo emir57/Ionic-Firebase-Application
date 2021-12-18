@@ -24,7 +24,8 @@
     <div class="card-body">
       <h5 class="card-title text-primary">{{order.totalPrice | currency:'TRY'}}</h5>
       <p class="card-text">{{order.addressText}}</p>
-      <p class="card-text text-primary">{{order.city}}</p>
+      <p class="card-text">{{order.city}}</p>
+      <p class="card-text text-primary" *ngIf="order.orderDate">{{order.orderDate}}</p>
     </div>
   </div>
 </ion-content>

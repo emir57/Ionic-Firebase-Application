@@ -40,5 +40,4 @@ export class MyOrdersPage implements OnInit {
     });
     return await modal.present();
   }
-
 }
