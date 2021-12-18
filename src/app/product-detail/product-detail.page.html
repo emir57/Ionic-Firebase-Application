@@ -27,7 +27,7 @@
       <span style="font-size: medium;" class="badge bg-danger" *ngIf="product.isDiscount">-{{product.discount}}%</span>
     </div>
     <div class="col-8 mb-3">
-      <button [disabled]="product.stock==0" class="card-link btn btn-primary">Sepete Ekle</button>
+      <button (click)="addToCart()" [disabled]="product.stock==0" class="card-link btn btn-primary">Sepete Ekle</button>
     </div>
   </div>
   <div class="row mb-3">

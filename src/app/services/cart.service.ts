@@ -13,8 +13,16 @@ export class CartService {
   ) { }
 
   addToCart(cart: Cart) {
-    const carts = this.fireStore.collection("carts");
-    return carts.add(cart);
+    this.getCarts().subscribe(carts=>{
+      carts.forEach(c=>{
+        if(c.userId==cart.userId && c.productId==cart.productId){
+          c.quantity+=1;
+          this.updateCart(c)
+        }
+      })
+    })
+    const cartdatabase = this.fireStore.collection("carts");
+    return cartdatabase.add(cart);
   }
 
   deleteCart(id: string) {
@@ -22,7 +30,7 @@ export class CartService {
     this.getCart(id).subscribe(cart => {
       if (cart.quantity > 1) {
         cart.quantity -= 1
-        carts.doc(id).update(cart);
+        this.updateCart(cart);
       } else {
         carts.doc(id).delete();
       }
@@ -45,5 +53,9 @@ export class CartService {
       subject.next(carts)
     })
     return subject.asObservable();
+  }
+  updateCart(cart:Cart){
+    const carts = this.fireStore.collection("carts")
+    return carts.doc(cart.id).update(cart);
   }
 }

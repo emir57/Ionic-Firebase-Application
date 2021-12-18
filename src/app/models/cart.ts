@@ -3,7 +3,7 @@ import { User } from "./user";
 
 export interface Cart{
   id?:string;
-  product:Product,
-  user:User,
+  productId:string,
+  userId:string,
   quantity:number;
 }
