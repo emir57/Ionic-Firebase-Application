@@ -41,6 +41,8 @@ export class OrderService {
         this.productService.updateProduct(product);
       }
     })
+    let today = new Date
+    order.orderDate= today;
     const orders = this.fireStore.collection("orders");
     return orders.add(order);
   }
