@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Cart } from '../models/cart';
 import { CartModel } from '../models/cartModel';
 import { User } from '../models/user';
@@ -21,6 +22,8 @@ export class MyCartsPage implements OnInit {
     private toastController: ToastController,
     private authService: AuthService,
     private productService: ProductService,
+    private router: Router,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -43,11 +46,11 @@ export class MyCartsPage implements OnInit {
       userId: cart.userId,
       id: cart.id
     }
-    this.cartService.getCart(cart.id).subscribe(cart=>{
-      if(cart.quantity<1){
+    this.cartService.getCart(cart.id).subscribe(cart => {
+      if (cart.quantity < 1) {
         this.cartService.addToCart(defaultCart)
         this.presentToast("Başarıyla Eklendi")
-      }else{
+      } else {
         this.presentToast("Her üründe en fazla 1 ürün eklenebilir.")
       }
     })
@@ -56,6 +59,9 @@ export class MyCartsPage implements OnInit {
   deleteToCart(cart: Cart) {
     this.cartService.deleteCart(cart.id)
     this.presentToast("Başarıyla Silindi");
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 
 
