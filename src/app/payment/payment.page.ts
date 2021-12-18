@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { CartModel } from '../models/cartModel';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-payment',
@@ -10,6 +11,7 @@ import { CartModel } from '../models/cartModel';
 })
 export class PaymentPage implements OnInit {
   @Input() carts:CartModel[]
+  @Input() user:User
 
   totalPrice=0;
   form:FormGroup
@@ -32,13 +34,18 @@ export class PaymentPage implements OnInit {
 
   createForm(){
     this.form = this.formBuilder.group({
-      creditCardNumber:['',[Validators.required,Validators.maxLength(16)]],
-      cvv:['',[Validators.required,Validators.maxLength(3)]],
-      date:['',[Validators.required]],
-      city:['',[Validators.required]],
-      addressText:['',[Validators.required]],
+      creditCardNumber:['1111 1111 1111 1111',[Validators.required,Validators.maxLength(19)]],
+      cvv:['994',[Validators.required,Validators.maxLength(3)]],
+      date:['02/26',[Validators.required]],
+      city:['Ankara',[Validators.required]],
+      addressText:['Örnek Mahallesi\nFaik Suat Caddesi\nAnkara/Altındağ',[Validators.required]],
       totalPrice:[this.totalPrice]
     })
+  }
+  payment(){
+    if(this.form.valid){
+      let order = Object.assign({userId:this.user.id},this.form.value)
+    }
   }
 
   dismiss(){

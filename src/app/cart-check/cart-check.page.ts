@@ -39,7 +39,8 @@ export class CartCheckPage implements OnInit {
     const modal = await this.modalController.create({
       component:PaymentPage,
       componentProps:{
-        carts:this.carts
+        carts:this.carts,
+        user:this.currentUser
       }
     })
     return await modal.present();
