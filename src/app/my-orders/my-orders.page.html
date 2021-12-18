@@ -10,6 +10,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-button *ngIf="orders.length==0" style="margin-top:20%;" routerLink="/home" expand="block" shape="round">
+    Henüz siparişin yok sipariş vermeye başla
+  </ion-button>
   <div class="card mb-3" style="width: 18rem;margin:auto;" *ngFor="let order of orders">
     <ul class="list-group" *ngFor="let product of order.products">
       <li class="list-group-item">
