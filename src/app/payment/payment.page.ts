@@ -47,7 +47,7 @@ export class PaymentPage implements OnInit {
     if(this.form.valid){
       let products:Product[]=[]
       this.carts.forEach(c=>{
-        products.push(c.product)
+        products.push(Object.assign({quantity:c.quantity},c.product))
       })
       let order = Object.assign(
         {

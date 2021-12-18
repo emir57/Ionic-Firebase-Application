@@ -35,6 +35,10 @@ export class OrderService {
   }
 
   addOrder(order:Order){
+    order.products.forEach(product=>{
+      product.stock-=product.quantity
+      this.productService.updateProduct(product);
+    })
     const orders = this.fireStore.collection("orders");
     return orders.add(order);
   }

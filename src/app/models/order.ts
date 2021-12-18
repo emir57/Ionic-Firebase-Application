@@ -1,3 +1,4 @@
+import { OrderedProduct } from "./orderedProduct";
 import { Product } from "./product";
 
 export interface Order{
@@ -7,5 +8,5 @@ export interface Order{
   addressText:string;
   city:string;
   orderDate:Date;
-  products:Product[]
+  products:OrderedProduct[]
 }
