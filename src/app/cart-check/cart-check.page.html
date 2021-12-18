@@ -4,6 +4,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" (click)="showPaymentModal()">
+        Tamamla
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -17,6 +22,13 @@
         <div class="card-body">
           <h5 class="card-title">{{cart.product.productName}}</h5>
           <p class="card-text">{{cart.product.description}}</p>
+          <p *ngIf="cart.product.isDiscount">
+            <del class="text-muted">{{cart.product.unitPrice*cart.quantity | currency:'TRY'}}</del>
+          </p>
+          <p>
+            {{cart.product.unitPrice*cart.quantity | discount:cart.product.discount:cart.product.isDiscount | currency:'TRY'}}
+            <span class="badge bg-danger" *ngIf="cart.product.isDiscount">-{{cart.product.discount}}%</span>
+          </p>
           <div class="row">
             <div class="col-4">
               <p class="card-text"><span class="text-primary">{{cart.quantity}} Adet</span></p>

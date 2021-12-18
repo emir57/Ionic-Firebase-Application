@@ -34,4 +34,8 @@ export class CartCheckPage implements OnInit {
     })
   }
 
+  showPaymentModal(){
+
+  }
+
 }
