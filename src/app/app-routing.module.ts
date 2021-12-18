@@ -94,6 +94,10 @@ const routes: Routes = [
     loadChildren: () => import('./all-orders/all-orders.module').then( m => m.AllOrdersPageModule),
     canActivate:[SecurityGuard,AdminGuard]
   },
+  {
+    path: 'my-orders',
+    loadChildren: () => import('./my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
+  },
 
 ];
 
