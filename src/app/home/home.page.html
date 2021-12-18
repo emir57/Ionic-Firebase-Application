@@ -45,6 +45,12 @@
           Tüm Kullanıcılar
         </ion-button>
       </ion-item>
+      <ion-item *ngIf="isInRoleAdmin()">
+        <ion-button routerLink="/all-products" expand="block" fill="clear" shape="round">
+          <ion-icon name="reader-outline"></ion-icon>
+          Siparişler
+        </ion-button>
+      </ion-item>
       <ion-item>
         <ion-button (click)="logout()" expand="block" fill="clear" color="danger" shape="round">
           <ion-icon name="log-out-outline"></ion-icon>
