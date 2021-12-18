@@ -145,6 +145,9 @@ export class HomePage implements OnInit {
       quantity:0
     }
     this.cartService.addToCart(cart)
-    
+    this.presentToast("Sepete Yönlendiriliyorsunuz.")
+    setTimeout(() => {
+      this.router.navigate(["my-carts"])
+    }, 1000);
   }
 }
