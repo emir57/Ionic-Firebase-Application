@@ -20,7 +20,7 @@ export class MyCartsPage implements OnInit {
     private cartService:CartService,
     private toastController:ToastController,
     private authService:AuthService,
-    private productService:ProductService
+    private productService:ProductService,
   ) { }
 
   ngOnInit() {
@@ -48,6 +48,10 @@ export class MyCartsPage implements OnInit {
   deleteToCart(cart:Cart){
     this.cartService.deleteCart(cart.id)
     this.presentToast("Başarıyla Silindi");
+  }
+
+  dismiss(){
+    this
   }
 
 
