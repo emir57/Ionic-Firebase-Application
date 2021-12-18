@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { CartModel } from '../models/cartModel';
+import { Product } from '../models/product';
 import { User } from '../models/user';
 
 @Component({
@@ -44,7 +45,17 @@ export class PaymentPage implements OnInit {
   }
   payment(){
     if(this.form.valid){
-      let order = Object.assign({userId:this.user.id},this.form.value)
+      let products:Product[]=[]
+      this.carts.forEach(c=>{
+        products.push(c.product)
+      })
+      let order = Object.assign(
+        {
+          userId:this.user.id,
+          products:products
+        },
+        this.form.value)
+      console.log(order)
     }
   }
 
