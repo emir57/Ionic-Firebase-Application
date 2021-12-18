@@ -27,6 +27,13 @@
           Sepetim
         </ion-button>
       </ion-item>
+      <ion-item >
+        <ion-button routerLink="/all-orders" expand="block" fill="clear" shape="round">
+          <ion-icon name="receipt-outline"></ion-icon>
+          Siparişlerim
+        </ion-button>
+      </ion-item>
+      <!-- Admin Links -->
       <ion-item *ngIf="isInRoleAdmin()">
         <ion-button routerLink="/all-products" expand="block" fill="clear" shape="round">
           <ion-icon name="pie-chart-outline"></ion-icon>
@@ -48,9 +55,10 @@
       <ion-item *ngIf="isInRoleAdmin()">
         <ion-button routerLink="/all-orders" expand="block" fill="clear" shape="round">
           <ion-icon name="reader-outline"></ion-icon>
-          Siparişler
+          Tüm Siparişler
         </ion-button>
       </ion-item>
+      <!-- Admin Links End-->
       <ion-item>
         <ion-button (click)="logout()" expand="block" fill="clear" color="danger" shape="round">
           <ion-icon name="log-out-outline"></ion-icon>
