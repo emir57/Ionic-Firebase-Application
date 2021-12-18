@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CartModel } from '../models/cartModel';
 import { User } from '../models/user';
+import { PaymentPage } from '../payment/payment.page';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { ProductService } from '../services/product.service';
@@ -34,8 +35,14 @@ export class CartCheckPage implements OnInit {
     })
   }
 
-  showPaymentModal(){
-
+  async showPaymentModal(){
+    const modal = await this.modalController.create({
+      component:PaymentPage,
+      componentProps:{
+        carts:this.carts
+      }
+    })
+    return await modal.present();
   }
 
 }
