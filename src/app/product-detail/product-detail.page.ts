@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Cart } from '../models/cart';
 import { Product } from '../models/product';
@@ -16,17 +17,20 @@ import { UserService } from '../services/user.service';
 export class ProductDetailPage implements OnInit {
   @Input() product:Product
 
+  form:FormGroup
   currentUser:User
   constructor(
     private modalController:ModalController,
     private productService:ProductService,
     private cartService:CartService,
     private authService:AuthService,
-    private toastController:ToastController
+    private toastController:ToastController,
+    private formBuilder:FormBuilder
   ) { }
 
   ngOnInit() {
     this.currentUser=this.authService.getUserInStorage();
+    this.createForm();
   }
 
   dismiss(){
@@ -42,6 +46,13 @@ export class ProductDetailPage implements OnInit {
     this.cartService.addToCart(cart)
     this.presentToast("Başarıyla Sepete Eklendi")
   }
+  createForm(){
+    this.form = this.formBuilder.group({
+      userId:[this.currentUser.id,[]],
+      message:['',[Validators.required]],
+      isLike:[false,[]]
+    })
+  }
 
 
   async presentToast(message:string) {
@@ -50,6 +61,12 @@ export class ProductDetailPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  commentDo(){
+    if(this.form.valid){
+      console.log(this.form.value)
+    }
   }
 
 

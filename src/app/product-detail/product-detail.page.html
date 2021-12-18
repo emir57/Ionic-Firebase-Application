@@ -31,8 +31,26 @@
     </div>
   </div>
   <div class="row mb-3">
+    <div class="col-12 mb-3">
+      <!-- <h5 class="">Değerlendir</h5> -->
+      <div class="row">
+        <form [formGroup]="form">
+          <div class="col-12">
+            <ion-textarea formControlName="message" style="font-size: medium; border:1px solid gray"></ion-textarea>
+          </div>
+          <div class="col-12" style="font-size: medium;">
+            <ion-checkbox formControlName="isLike" color="success"></ion-checkbox> Bu Ürünü Beğendim
+          </div>
+        </form>
+        <div class="col-12">
+          <ion-button [disabled]="!form.valid" style="font-size: medium;" (click)="commentDo()" shape="round">
+            Değerlendir
+          </ion-button>
+        </div>
+      </div>
+    </div>
     <div class="col-12">
-      <h5 class="display-5">Değerlendirmeler</h5>
+      <h5 class="">Değerlendirmeler</h5>
     </div>
     <!-- Comment -->
     <div class="col-12 mb-3">
