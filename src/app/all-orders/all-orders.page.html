@@ -18,6 +18,11 @@
         <a class="text-primary" (click)="showProductModal(product)">Ürün Detayı</a>
       </li>
     </ul>
+    <ul class="list-group" >
+      <li class="list-group-item">
+        <a class="text-primary" (click)="showUserModal(order.userId)">Kullanıcı Detayı</a>
+      </li>
+    </ul>
     <div class="card-body">
       <h5 class="card-title text-primary">{{order.totalPrice | currency:'TRY'}}</h5>
       <p class="card-text">{{order.addressText}}</p>

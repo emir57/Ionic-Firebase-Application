@@ -39,14 +39,18 @@ export class AllOrdersPage implements OnInit {
     return await modal.present();
   }
 
-  async showUserModal(userEmail:string){
-    this.authService.getuser(userEmail)
-    //todos
-    const modal = await this.modalController.create({
-      component:UserUpdatePage,
-      componentProps:{user:userEmail}
-    });
-    return await modal.present();
+  async showUserModal(userId:string){
+    this.authService.getUsers().subscribe(users=>{
+      users.forEach(async user=>{
+        if(user.id===userId){
+          const modal = await this.modalController.create({
+            component:UserUpdatePage,
+            componentProps:{user:user}
+          });
+          return await modal.present();
+        }
+      })
+    })
   }
 
 }
