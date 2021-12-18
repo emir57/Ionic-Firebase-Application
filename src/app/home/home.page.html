@@ -83,8 +83,8 @@
       <li class="list-group-item text-danger" *ngIf="product.stock==0"><i>Tükendi</i></li>
     </ul>
     <div class="card-body">
-      <button class="card-link btn btn-primary">Detay</button>
-      <button [disabled]="product.stock==0" class="card-link btn btn-primary">Satın Al</button>
+      <button class="card-link btn btn-primary" routerLink="/product-detail">Detay</button>
+      <button [disabled]="product.stock==0" class="card-link btn btn-success">Sepete Ekle</button>
     </div>
   </div>
   <!-- Product End -->

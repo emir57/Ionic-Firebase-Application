@@ -56,15 +56,23 @@ const routes: Routes = [
   },
   {
     path: 'all-users',
-    loadChildren: () => import('./all-users/all-users.module').then( m => m.AllUsersPageModule)
+    loadChildren: () => import('./all-users/all-users.module').then( m => m.AllUsersPageModule),
+    canActivate:[SecurityGuard,AdminGuard]
   },
   {
     path: 'user-add',
-    loadChildren: () => import('./user-add/user-add.module').then( m => m.UserAddPageModule)
+    loadChildren: () => import('./user-add/user-add.module').then( m => m.UserAddPageModule),
+    canActivate:[SecurityGuard,AdminGuard]
   },
   {
     path: 'user-update',
-    loadChildren: () => import('./user-update/user-update.module').then( m => m.UserUpdatePageModule)
+    loadChildren: () => import('./user-update/user-update.module').then( m => m.UserUpdatePageModule),
+    canActivate:[SecurityGuard,AdminGuard]
+  },
+  {
+    path: 'product-detail',
+    loadChildren: () => import('./product-detail/product-detail.module').then( m => m.ProductDetailPageModule),
+    canActivate:[SecurityGuard]
   },
 
 ];
