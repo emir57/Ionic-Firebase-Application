@@ -84,7 +84,7 @@
     </ul>
     <div class="card-body">
       <button class="card-link btn btn-primary" (click)="productDetailModal(product)">Detay</button>
-      <button [disabled]="product.stock==0" class="card-link btn btn-success">Sepete Ekle</button>
+      <button (click)="addToCart(product)" [disabled]="product.stock==0" class="card-link btn btn-success">Sepete Ekle</button>
     </div>
   </div>
   <!-- Product End -->

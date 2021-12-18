@@ -40,7 +40,7 @@ export class ProductDetailPage implements OnInit {
       quantity:0,
     }
     this.cartService.addToCart(cart).finally(()=>{
-      this.presentToast("Başarıyla Eklendi.")
+      this.presentToast("Başarıyla Sepete Eklendi")
 
     })
   }

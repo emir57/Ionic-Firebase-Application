@@ -6,12 +6,14 @@ import { Observable, Subject } from 'rxjs';
 import { AllCategoriesPage } from '../all-categories/all-categories.page';
 import { AllProductsPage } from '../all-products/all-products.page';
 import { CategoryAddPage } from '../category-add/category-add.page';
+import { Cart } from '../models/cart';
 import { Category } from '../models/category';
 import { Product } from '../models/product';
 import { User } from '../models/user';
 import { ProductAddPage } from '../product-add/product-add.page';
 import { ProductDetailPage } from '../product-detail/product-detail.page';
 import { AuthService } from '../services/auth.service';
+import { CartService } from '../services/cart.service';
 import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
 @Component({
@@ -32,7 +34,8 @@ export class HomePage implements OnInit{
     private categoryService:CategoryService,
     private authService:AuthService,
     private router:Router,
-    private toastController:ToastController
+    private toastController:ToastController,
+    private cartService:CartService
   ) {
   }
 
@@ -132,6 +135,17 @@ export class HomePage implements OnInit{
   isInRoleAdmin(){
     let user = this.authService.getUserInStorage();
     return this.authService.isInRole(user,"Admin")
+  }
+
+  addToCart(product:Product){
+    let cart:Cart={
+      productId:product.id,
+      userId:this.currentUser.id,
+      quantity:0,
+    }
+    this.cartService.addToCart(cart).finally(()=>{
+      this.presentToast("Başarıyla Sepete Eklendi");
+    })
   }
 
 }
