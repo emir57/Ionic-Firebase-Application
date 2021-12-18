@@ -10,7 +10,8 @@ import { UserSearchPipe } from './user-search.pipe';
   imports: [
     CommonModule
   ],exports:[
-    ProductSearchPipe
+    ProductSearchPipe,
+    UserSearchPipe
   ]
 })
 export class PipesModule { }
