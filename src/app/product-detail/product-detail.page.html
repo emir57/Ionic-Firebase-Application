@@ -1,9 +1,66 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>product-detail</ion-title>
+    <ion-title>{{product.productName}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        Kapat
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="row mb-3">
+    <div class="col-12">
+      <img [src]="product.imageUrl" [alt]="product.productName">
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-12 mb-3">
+      <div style="text-align: center;">{{product.description}}</div>
+    </div>
+    <div class="col-8 mb-3" *ngIf="product.isDiscount"><del
+        class="text-muted">{{product.unitPrice |currency:'TRY'}}</del>
+    </div>
+    <div class="col-8 mb-3">
+      {{product.unitPrice |discount:product.discount:product.isDiscount |currency:'TRY'}}
+      <span style="font-size: medium;" class="badge bg-danger" *ngIf="product.isDiscount">-{{product.discount}}%</span>
+    </div>
+    <div class="col-8 mb-3">
+      <button [disabled]="product.stock==0" class="card-link btn btn-primary">Sepete Ekle</button>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-12">
+      <h5 class="display-5">Değerlendirmeler</h5>
+    </div>
+    <!-- Comment -->
+    <div class="col-12 mb-3">
+      <div class="row card">
+        <div class="col-12 card">
+          <div class="row p-1">
+            <div class="col-2"><img src="../../assets/user.png" width="50" alt=""></div>
+            <div class="col-10">Emir Gürbüz</div>
+          </div>
+        </div>
+        <div class="col-12 card p-3" style="font-size: medium;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, quo.
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mb-3">
+      <div class="row card">
+        <div class="col-12 card">
+          <div class="row p-1">
+            <div class="col-2"><img src="../../assets/user.png" width="50" alt=""></div>
+            <div class="col-10">Emir Gürbüz</div>
+          </div>
+        </div>
+        <div class="col-12 card p-3" style="font-size: medium;">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, quo.
+        </div>
+      </div>
+    </div>
+    <!-- Comment End -->
+  </div>
 </ion-content>

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Product } from '../models/product';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-detail.page.scss'],
 })
 export class ProductDetailPage implements OnInit {
+  @Input() product:Product
 
-  constructor() { }
+  constructor(
+    private modalController:ModalController,
+    private productService:ProductService
+  ) { }
 
   ngOnInit() {
+  }
+
+  dismiss(){
+    this.modalController.dismiss();
   }
 
 }

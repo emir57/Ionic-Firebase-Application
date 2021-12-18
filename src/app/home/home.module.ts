@@ -19,6 +19,6 @@ import { PipesModule } from '../pipes/pipes.module';
     HomePageRoutingModule,
     PipesModule
   ],
-  declarations: [HomePage,DiscountPipe,GetProductforCategoryPipe],
+  declarations: [HomePage,GetProductforCategoryPipe],
 })
 export class HomePageModule {}
