@@ -52,7 +52,7 @@ export class ProductDetailPage implements OnInit {
     let cart:Cart={
       productId:this.product.id,
       userId:this.currentUser.id,
-      quantity:1,
+      quantity:0,
     }
     this.cartService.addToCart(cart)
     this.presentToast("Başarıyla Sepete Eklendi")
