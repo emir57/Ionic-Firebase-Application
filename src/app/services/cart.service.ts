@@ -13,16 +13,27 @@ export class CartService {
   ) { }
 
   addToCart(cart: Cart) {
-    this.getCarts().subscribe(carts=>{
-      carts.forEach(c=>{
-        if(c.userId==cart.userId && c.productId==cart.productId){
-          c.quantity+=1;
-          this.updateCart(c)
-        }
-      })
+    this.getCart(cart.id).subscribe(getCart => {
+      if (getCart.userId === cart.userId && getCart.productId === cart.productId) {
+        cart.quantity += 1;
+        return this.updateCart(cart)
+      } else {
+        const cartdatabase = this.fireStore.collection("carts");
+        return cartdatabase.add(cart);
+      }
     })
-    const cartdatabase = this.fireStore.collection("carts");
-    return cartdatabase.add(cart);
+    // this.getCarts().subscribe(carts => {
+    //   carts.forEach(c => {
+    //     if (c.userId === cart.userId && c.productId === cart.productId) {
+    //       c.quantity += 1;
+    //       console.log(c)
+    //       return this.updateCart(c)
+    //     } else {
+    //       const cartdatabase = this.fireStore.collection("carts");
+    //       return cartdatabase.add(cart);
+    //     }
+    //   })
+    // })
   }
 
   deleteCart(id: string) {
@@ -44,12 +55,12 @@ export class CartService {
     })
     return subject.asObservable();
   }
-  getCartsByUserId(userId):Observable<any>{
-    let carts:Cart[]=[]
+  getCartsByUserId(userId: string): Observable<any> {
+    let carts: Cart[] = []
     const subject = new Subject<any>();
-    this.getCarts().subscribe(getCarts=>{
-      getCarts.forEach(c=>{
-        if(c.userId==userId){
+    this.getCarts().subscribe(getCarts => {
+      getCarts.forEach(c => {
+        if (c.userId == userId) {
           carts.push(c)
         }
       })
@@ -58,16 +69,16 @@ export class CartService {
     return subject.asObservable();
   }
   getCarts() {
-    let carts:any[]=[];
+    let carts: any[] = [];
     const subject = new Subject<any>();
     const cart = this.fireStore.collection("carts")
     cart.get().subscribe(doc => {
-      doc.forEach(d=>carts.push(Object.assign({id:d.id},d.data())))
+      doc.forEach(d => carts.push(Object.assign({ id: d.id }, d.data())))
       subject.next(carts)
     })
     return subject.asObservable();
   }
-  updateCart(cart:Cart){
+  private updateCart(cart: Cart) {
     const carts = this.fireStore.collection("carts")
     return carts.doc(cart.id).update(cart);
   }

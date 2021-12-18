@@ -141,11 +141,10 @@ export class HomePage implements OnInit{
     let cart:Cart={
       productId:product.id,
       userId:this.currentUser.id,
-      quantity:0,
+      quantity:1,
     }
-    this.cartService.addToCart(cart).finally(()=>{
-      this.presentToast("Başarıyla Sepete Eklendi");
-    })
+    this.cartService.addToCart(cart)
+    this.presentToast("Başarıyla Sepete Eklendi");
   }
 
 }

@@ -1,9 +1,34 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>my-carts</ion-title>
+    <ion-title>Sepetim</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="card mb-3" style="max-width: 540px;" *ngFor="let cart of carts">
+    <div class="row g-0">
+      <div class="col-4">
+        <img [src]="cart.product.imageUrl" class="img-fluid rounded-start" alt="cart.product.productName">
+      </div>
+      <div class="col-8">
+        <div class="card-body">
+          <h5 class="card-title">{{cart.product.productName}}</h5>
+          <p class="card-text">{{cart.product.description}}</p>
+          <div class="row">
+            <div class="col-4">
+              <p class="card-text"><span class="text-primary">{{cart.quantity}} Adet</span></p>
+            </div>
+            <div class="col-8">
+              <button (click)="deleteToCart(cart)" class="btn btn-primary">
+                <ion-icon name="remove-outline"></ion-icon>
+              </button>
+              <button (click)="addToCart(cart)" class="btn btn-primary">
+                <ion-icon name="add-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
