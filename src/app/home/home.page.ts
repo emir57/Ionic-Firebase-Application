@@ -138,27 +138,13 @@ export class HomePage implements OnInit {
   }
 
   addToCart(product: Product) {
-    let cart:Cart;
-    this.cartService.getCartsByUserId(this.currentUser.id).subscribe(getCart => {
-      getCart.forEach(c=>{
-        if (c.productId == product.id) {
-          cart= {
-            productId: product.id,
-            userId: this.currentUser.id,
-            quantity: 1,
-            id:c.id
-          }
-          this.cartService.addToCart(cart)
-        }else{
-          cart= {
-            productId: product.id,
-            userId: this.currentUser.id,
-            quantity: 1
-          }
-          this.cartService.addToCart(cart)
-        }
-      })
-    })
+    let cart: Cart;
+    cart = {
+      productId: product.id,
+      userId: this.currentUser.id,
+      quantity:0
+    }
+    this.cartService.addToCart(cart)
     this.presentToast("Başarıyla Sepete Eklendi");
   }
 }

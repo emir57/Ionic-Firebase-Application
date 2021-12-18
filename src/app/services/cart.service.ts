@@ -13,15 +13,25 @@ export class CartService {
   ) { }
 
   addToCart(cart: Cart) {
-    this.getCart(cart.id).subscribe(getCart => {
-      if (getCart.userId == cart.userId && getCart.productId == cart.productId) {
-        cart.quantity += 1;
-        return this.updateCart(cart)
-      } else if(getCart.userId != cart.userId && getCart.productId != cart.productId){
+    let isUpdate = false;
+    this.getCarts().subscribe(carts => {
+      carts.forEach(c => {
+        if (cart.productId == c.productId && cart.userId == c.userId) {
+          c.quantity++;
+          cart.id = c.id;
+          isUpdate = true
+          console.log(c)
+          this.updateCart(c).catch(error=>console.log(error))
+        }
+      })
+      if (!isUpdate) {
+        console.log("a")
         const cartdatabase = this.fireStore.collection("carts");
-        return cartdatabase.add(cart);
+        cart.quantity += 1;
+        cartdatabase.add(cart)
       }
     })
+
   }
   deleteCart(id: string) {
     const carts = this.fireStore.collection("carts")
@@ -34,7 +44,7 @@ export class CartService {
       }
     })
   }
-  deleteCartAll(id:string){
+  deleteCartAll(id: string) {
     const carts = this.fireStore.collection("carts")
     carts.doc(id).delete();
   }
