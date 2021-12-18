@@ -1,6 +1,6 @@
 export interface Comment{
   id?:string;
-  userId:string;
+  userEmail:string;
   productId:string;
   message:string;
   isLike:boolean;

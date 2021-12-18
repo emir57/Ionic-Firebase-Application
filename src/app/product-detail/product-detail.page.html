@@ -50,33 +50,28 @@
       </div>
     </div>
     <div class="col-12">
-      <h5 class="">Değerlendirmeler</h5>
+      <h5 class="">Değerlendirmeler <ion-icon name="chatbubbles-outline"></ion-icon></h5>
     </div>
     <!-- Comment -->
-    <div class="col-12 mb-3">
+    <div class="col-12 mb-3" *ngFor="let comment of comments">
       <div class="row card">
         <div class="col-12 card">
           <div class="row p-1">
             <div class="col-2"><img src="../../assets/user.png" width="50" alt=""></div>
-            <div class="col-10">Emir Gürbüz</div>
+            <div class="col-10">{{comment.user.firstName}} {{comment.user.lastName}}</div>
           </div>
         </div>
         <div class="col-12 card p-3" style="font-size: medium;">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, quo.
+          {{comment.message}}
         </div>
-      </div>
-    </div>
-    <div class="col-12 mb-3">
-      <div class="row card">
-        <div class="col-12 card">
-          <div class="row p-1">
-            <div class="col-2"><img src="../../assets/user.png" width="50" alt=""></div>
-            <div class="col-10">Emir Gürbüz</div>
-          </div>
-        </div>
-        <div class="col-12 card p-3" style="font-size: medium;">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, quo.
-        </div>
+        <p >
+          <span style="font-size: medium;" class="text-success" *ngIf="comment.isLike">
+            Bu ürünü beğendi <ion-icon name="checkmark-outline"></ion-icon>
+          </span>
+          <span style="font-size: medium;" class="text-danger" *ngIf="!comment.isLike">
+            Bu ürünü beğenmedi <ion-icon name="close-outline"></ion-icon>
+          </span>
+        </p>
       </div>
     </div>
     <!-- Comment End -->
