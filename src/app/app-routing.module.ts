@@ -76,7 +76,8 @@ const routes: Routes = [
   },
   {
     path: 'my-carts',
-    loadChildren: () => import('./my-carts/my-carts.module').then( m => m.MyCartsPageModule)
+    loadChildren: () => import('./my-carts/my-carts.module').then( m => m.MyCartsPageModule),
+    canActivate:[SecurityGuard]
   },
 
 ];
