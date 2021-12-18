@@ -43,8 +43,15 @@ export class MyCartsPage implements OnInit {
       userId: cart.userId,
       id: cart.id
     }
-    this.cartService.addToCart(defaultCart)
-    this.presentToast("Başarıyla Eklendi")
+    this.cartService.getCart(cart.id).subscribe(cart=>{
+      if(cart.quantity<1){
+        this.cartService.addToCart(defaultCart)
+        this.presentToast("Başarıyla Eklendi")
+      }else{
+        this.presentToast("Her üründe en fazla 1 ürün eklenebilir.")
+      }
+    })
+
   }
   deleteToCart(cart: Cart) {
     this.cartService.deleteCart(cart.id)
