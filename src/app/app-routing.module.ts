@@ -86,7 +86,8 @@ const routes: Routes = [
   },
   {
     path: 'payment',
-    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule),
+    canActivate:[SecurityGuard]
   },
 
 ];
