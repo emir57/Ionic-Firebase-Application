@@ -14,33 +14,34 @@ import { ProductService } from '../services/product.service';
 })
 export class CartCheckPage implements OnInit {
 
-  currentUser:User
-  carts:CartModel[]=[]
+  currentUser: User
+  carts: CartModel[] = []
   constructor(
-    private productService:ProductService,
-    private cartService:CartService,
-    private authService:AuthService,
-    private modalController:ModalController
+    private productService: ProductService,
+    private cartService: CartService,
+    private authService: AuthService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
     this.currentUser = this.authService.getUserInStorage();
     this.cartService.getCartsByUserId(this.currentUser.id)
-      .subscribe(getCarts=>{
-        getCarts.forEach(c=>{
-          this.productService.getProduct(c.productId).subscribe(doc=>{
-          this.carts.push(Object.assign({product:doc.data()},c))
+      .subscribe(getCarts => {
+        getCarts.forEach(c => {
+          this.productService.getProduct(c.productId).subscribe(doc => {
+            let product = Object.assign({ id: doc.id }, doc.data())
+            this.carts.push(Object.assign({ product: product }, c))
           })
         })
-    })
+      })
   }
 
-  async showPaymentModal(){
+  async showPaymentModal() {
     const modal = await this.modalController.create({
-      component:PaymentPage,
-      componentProps:{
-        carts:this.carts,
-        user:this.currentUser
+      component: PaymentPage,
+      componentProps: {
+        carts: this.carts,
+        user: this.currentUser
       }
     })
     return await modal.present();

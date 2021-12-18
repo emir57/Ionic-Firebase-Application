@@ -64,7 +64,7 @@ export class PaymentPage implements OnInit {
         this.orderService.addOrder(order).finally(() => {
           this.presentToast("Ödeme Başarılı")
         })
-      }, 5000);
+      }, 1000);
       this.carts.forEach(cart=>{
         this.cartService.deleteCartAll(cart.id);
       })

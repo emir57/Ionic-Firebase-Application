@@ -14,48 +14,45 @@ import { ProductService } from '../services/product.service';
 })
 export class MyCartsPage implements OnInit {
 
-  currentUser:User
-  carts:CartModel[]=[]
+  currentUser: User
+  carts: CartModel[] = []
   constructor(
-    private cartService:CartService,
-    private toastController:ToastController,
-    private authService:AuthService,
-    private productService:ProductService,
+    private cartService: CartService,
+    private toastController: ToastController,
+    private authService: AuthService,
+    private productService: ProductService,
   ) { }
 
   ngOnInit() {
     this.currentUser = this.authService.getUserInStorage();
     this.cartService.getCartsByUserId(this.currentUser.id)
-      .subscribe(getCarts=>{
-        getCarts.forEach(c=>{
-          this.productService.getProduct(c.productId).subscribe(doc=>{
-          this.carts.push(Object.assign({product:doc.data()},c))
+      .subscribe(getCarts => {
+        getCarts.forEach(c => {
+          this.productService.getProduct(c.productId).subscribe(doc => {
+            let product = Object.assign({ id: doc.id }, doc.data())
+            this.carts.push(Object.assign({ product: product }, c))
           })
         })
-    })
+      })
   }
 
-  addToCart(cart:Cart){
-    let defaultCart:Cart={
-      productId:cart.productId,
-      quantity:cart.quantity,
-      userId:cart.userId,
-      id:cart.id
+  addToCart(cart: Cart) {
+    let defaultCart: Cart = {
+      productId: cart.productId,
+      quantity: cart.quantity,
+      userId: cart.userId,
+      id: cart.id
     }
     this.cartService.addToCart(defaultCart)
     this.presentToast("Başarıyla Eklendi")
   }
-  deleteToCart(cart:Cart){
+  deleteToCart(cart: Cart) {
     this.cartService.deleteCart(cart.id)
     this.presentToast("Başarıyla Silindi");
   }
 
-  dismiss(){
-    this
-  }
 
-
-  async presentToast(message:string) {
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
       duration: 2000
