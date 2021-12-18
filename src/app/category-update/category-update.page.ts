@@ -10,8 +10,8 @@ import { CategoryService } from '../services/category.service';
   styleUrls: ['./category-update.page.scss'],
 })
 export class CategoryUpdatePage implements OnInit {
-  @Input() category:Category
-  categoryUpdateForm:FormGroup
+  @Input() category: Category
+  categoryUpdateForm: FormGroup
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
@@ -25,39 +25,33 @@ export class CategoryUpdatePage implements OnInit {
   }
 
 
-  createcategoryUpdateForm(){
+  createcategoryUpdateForm() {
     this.categoryUpdateForm = this.formBuilder.group({
-      id:[this.category.id],
-      name:[this.category.name,[Validators.required,Validators.maxLength(20)]]
+      id: [this.category.id],
+      name: [this.category.name, [Validators.required, Validators.maxLength(20)]]
     })
   }
 
-  saveCategory(){
-    if(this.categoryUpdateForm.valid){
-      let category = Object.assign({},this.categoryUpdateForm.value);
+  saveCategory() {
+    if (this.categoryUpdateForm.valid) {
+      let category = Object.assign({}, this.categoryUpdateForm.value);
       this.categoryService.updateCategory(category)
-      .then(()=>{
+        .then(() => {
 
-      }).finally(()=>{
-        window.location.reload();
-      })
+        }).finally(() => {
+          window.location.reload();
+        })
       this.presentToast(`güncelleme başarılı`)
       this.modalController.dismiss();
     }
   }
 
-  dismiss(){
+  dismiss() {
     this.modalController.dismiss();
   }
 
-  deleteProduct(){
-    this.categoryService.deleteCategory(this.category.id)
-      .then(()=>{
-      }).finally(()=>{
-        this.presentToast(`${this.category.name} silme başarılı`)
-        this.modalController.dismiss();
-        window.location.reload();
-      })
+  deleteProduct() {
+    this.presentAlertConfirm();
   }
   async presentToast(message: string) {
     const toast = await this.toastController.create({
@@ -81,9 +75,15 @@ export class CategoryUpdatePage implements OnInit {
           }
         }, {
           text: 'SİL',
-          cssClass:"danger",
+          cssClass: "danger",
           handler: () => {
             this.categoryService.deleteCategory(this.category.id)
+              .then(() => {
+              }).finally(() => {
+                this.presentToast(`${this.category.name} silme başarılı`)
+                this.modalController.dismiss();
+                window.location.reload();
+              })
           }
         }
       ]
