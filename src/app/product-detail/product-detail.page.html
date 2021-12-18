@@ -53,6 +53,7 @@
       <h5 class="">Değerlendirmeler <ion-icon name="chatbubbles-outline"></ion-icon></h5>
     </div>
     <!-- Comment -->
+    <span class="alert alert-info" *ngIf="comments.length==0">Henüz Yorum Yapılmamış</span>
     <div class="col-12 mb-3" *ngFor="let comment of comments">
       <div class="row card">
         <div class="col-12 card">
