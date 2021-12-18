@@ -18,9 +18,7 @@ export class CartService {
       carts.forEach(c => {
         if (cart.productId == c.productId && cart.userId == c.userId) {
           c.quantity++;
-          cart.id = c.id;
           isUpdate = true
-          console.log(c)
           this.updateCart(c).catch(error=>console.log(error))
         }
       })
