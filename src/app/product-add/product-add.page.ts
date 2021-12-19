@@ -38,7 +38,7 @@ export class ProductAddPage implements OnInit {
       productName:['',[Validators.required]],
       description:['',[]],
       categoryId:[0,[Validators.required,Validators.min(1)]],
-      imageUrl:['',[]],
+      imageUrl:['../assets/',[]],
       unitPrice:['',[Validators.required,Validators.min(1)]],
       stock:['',[Validators.required,Validators.min(1)]],
       discount:['',[]],
