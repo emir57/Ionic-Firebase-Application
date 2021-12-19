@@ -42,7 +42,7 @@ export class HomePage implements OnInit {
   async ngOnInit() {
     this.currentUser = this.authService.getUserInStorage();
     this.getProducts().subscribe(products => {
-      this.products = products;
+      this.products = products.sort((x,y)=>x.stock-y.stock).reverse();
     })
     this.getCategories().subscribe(categories => {
       this.categories = categories;
@@ -149,5 +149,15 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.router.navigate(["my-carts"])
     }, 1000);
+  }
+
+  standardList(){
+    this.products.sort((x,y)=>x.stock-y.stock).reverse()
+  }
+  orderList(){
+    this.products.sort((x,y)=>x.unitPrice-y.unitPrice);
+  }
+  reverseList(){
+    this.products.sort((x,y)=>x.unitPrice-y.unitPrice).reverse();
   }
 }
