@@ -11,14 +11,14 @@
 
 <ion-content>
   <div class="card mb-3" style="width: 18rem;margin:auto;" *ngFor="let order of orders">
-    <ul class="list-group" *ngFor="let product of order.products">
+    <ul class="list-group" *ngFor="let cart of order.carts">
       <li class="list-group-item">
-        <img [src]="product.imageUrl" style="width: 50px;" class="card-img-top" [alt]="product.productName">
-        {{product.productName.substring(0,10)}}... |
-        <a class="text-primary" (click)="showProductModal(product)">Ürün Detayı</a>
+        <img [src]="cart.product.imageUrl" style="width: 50px;" class="card-img-top" [alt]="cart.product.productName">
+        {{cart.product.productName.substring(0,10)}}... |
+        <a class="text-primary" (click)="showProductModal(cart.product)">Ürün Detayı</a>
       </li>
     </ul>
-    <ul class="list-group" >
+    <ul class="list-group">
       <li class="list-group-item">
         <a class="text-primary" (click)="showUserModal(order.userId)">Kullanıcı Detayı</a>
       </li>
@@ -26,7 +26,8 @@
     <div class="card-body">
       <h5 class="card-title text-primary">{{order.totalPrice | currency:'TRY'}}</h5>
       <p class="card-text">{{order.addressText}}</p>
-      <p class="card-text text-primary">{{order.city}}</p>
+      <p class="card-text">{{order.city}}</p>
+      <p class="card-text text-primary" *ngIf="order.orderDate">{{order.orderDate}}</p>
     </div>
   </div>
 </ion-content>
