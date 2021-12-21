@@ -21,7 +21,7 @@ export class CartService {
         this.getCarts().subscribe(carts => {
           carts.forEach(c => {
             if (cart.productId == c.productId && cart.userId == c.userId) {
-              if(c.quantity<1){
+              if(c.quantity<2){
                 c.quantity++;
                 this.updateCart(c).catch(error => console.log(error))
               }

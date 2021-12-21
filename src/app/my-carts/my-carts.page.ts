@@ -47,11 +47,11 @@ export class MyCartsPage implements OnInit {
       id: cart.id
     }
     this.cartService.getCart(cart.id).subscribe(cart => {
-      if (cart.quantity < 1) {
+      if (cart.quantity < 2) {
         this.cartService.addToCart(defaultCart)
         this.presentToast("Başarıyla Eklendi")
       } else {
-        this.presentToast("Her üründe en fazla 1 ürün eklenebilir.")
+        this.presentToast("Her üründen en fazla 2 ürün eklenebilir.")
       }
     })
 
