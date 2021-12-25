@@ -16,6 +16,7 @@ export class CartCheckPage implements OnInit {
 
   currentUser: User
   carts: CartModel[] = []
+  totalPrice=0;
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -46,5 +47,4 @@ export class CartCheckPage implements OnInit {
     })
     return await modal.present();
   }
-
 }

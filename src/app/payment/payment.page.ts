@@ -30,6 +30,7 @@ export class PaymentPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.carts)
     this.carts.forEach(c => {
       if (c.product.isDiscount) {
         this.totalPrice += (c.product.unitPrice - (c.product.unitPrice * c.product.discount / 100)) * c.quantity
