@@ -16,7 +16,7 @@
         <label for="password">Şifre</label>
         <div *ngIf="(loginForm.get('password').dirty || loginForm.get('password').touched) && loginForm.get('password').errors">
           <span class="text-danger" *ngIf="loginForm.get('password').errors.minlength">en az 6 karakter olabilir</span>
-          <span class="text-danger" *ngIf="loginForm.get('password').errors.required">şifre gereli</span>
+          <span class="text-danger" *ngIf="loginForm.get('password').errors.required">şifre gerekli</span>
         </div>
       </div>
 
