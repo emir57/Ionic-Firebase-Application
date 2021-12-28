@@ -100,6 +100,8 @@ export class AuthService {
         return "kullanıcı bulunamadı";
       case "auth/invalid-email":
         return "geçersiz eposta"
+      case "auth/email-already-in-use":
+        return "böyle bir kullanıcı zaten var"
       default:
         "Bilinmeyen bir hata oluştu";
     }
